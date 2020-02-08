@@ -1,0 +1,43 @@
+version: 0.0
+name: tf2-examples-densenet
+short: tf2ex-densenet
+sources:
+    - tensorflow-examples:
+        url: https://github.com/tensorflow/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples
+    command:
+        - python
+        - tensorflow_examples/models/densenet/train.py
+        - --epochs
+        - 3
+        - --train_mode
+        - keras_fit
+    timeout: 10m
+    killtime: 15m
+#environment:
+#    pip:
+components:
+    tfds:
+        pip:
+            - tensorflow-datasets
+    wandb-init-callback:
+        patches:
+            tensorflow-examples:
+                - wandb-init-callback.patch
+variants:
+    - base:
+        - pythons
+        - wandb-run
+        - python-path
+        - tensorflows
+        - tfds
+    - callback:
+        - pythons
+        - python-path
+        - tensorflows
+        - tfds
+        - wandb-cli
+        - wandb-init-callback

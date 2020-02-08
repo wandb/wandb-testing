@@ -1,0 +1,35 @@
+version: 0.0
+name: tf2-examples-pix2pix
+sources:
+    - tensorflow-examples:
+        url: https://github.com/tensorflow/examples.git
+        base: examples
+        #hash: 
+prepare:
+    - download:
+        path: examples/tensorflow_examples/models/pix2pix
+        command:
+            - python
+            - data_download.py
+launch:
+    path: examples/tensorflow_examples/models/pix2pix
+    command:
+        - python
+        - pix2pix.py
+        - --path
+        - ~/.keras/datasets/facades/
+components:
+    wandb-init:
+        patches:
+            tensorflow-examples:
+                - wandb-init.patch
+variants:
+    - base:
+        - pythons
+        - wandb-run
+        - tf2n
+    - init:
+        - pythons
+        - tf2n
+        - wandb-cli
+        - wandb-init

@@ -1,0 +1,25 @@
+version: 0.0
+name: wandb-standalone-simpsons_data_frames
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+        #hash: 
+launch:
+    path: client/standalone_tests
+    command:
+        - python
+        - simpsons_data_frames.py
+components:
+    extra:
+        pip:
+            - pandas<0.25.0
+            - fastparquet
+            - pillow
+variants:
+    - init:
+        - pythons
+        - extra
+        - keras
+        - tf
+        - wandb-cli

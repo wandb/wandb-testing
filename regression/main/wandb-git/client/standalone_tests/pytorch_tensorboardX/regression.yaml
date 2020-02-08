@@ -1,0 +1,25 @@
+version: 0.0
+name: wandb-standalone-pytorch-tensorboardX
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+        #hash: 
+launch:
+    path: client/standalone_tests
+    command:
+        - python
+        - pytorch_tensorboardX.py
+components:
+    tbx:
+        pip:
+            - tensorboardX
+    extra:
+        pip:
+            - future
+variants:
+    - init:
+        - pythons
+        - wandb-cli
+        - torches1plus
+        - tbx

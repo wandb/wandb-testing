@@ -1,0 +1,35 @@
+diff --git a/tensorflow_examples/models/densenet/train.py b/tensorflow_examples/models/densenet/train.py
+index 5696331..37a15a3 100644
+--- a/tensorflow_examples/models/densenet/train.py
++++ b/tensorflow_examples/models/densenet/train.py
+@@ -23,6 +23,7 @@ import tensorflow as tf # TF2
+ from tensorflow_examples.models.densenet import densenet
+ from tensorflow_examples.models.densenet import utils
+ assert tf.__version__.startswith('2')
++import wandb
+ 
+ 
+ class Train(object):
+@@ -61,10 +62,12 @@ class Train(object):
+   def keras_fit(self, train_dataset, test_dataset):
+     self.model.compile(
+         optimizer=self.optimizer, loss=self.loss_object, metrics=['accuracy'])
++    callbacks = []
++    callbacks.append(tf.keras.callbacks.LearningRateScheduler(self.decay))
++    callbacks.append(wandb.keras.WandbCallback())
+     history = self.model.fit(
+         train_dataset, epochs=self.epochs, validation_data=test_dataset,
+-        verbose=2, callbacks=[tf.keras.callbacks.LearningRateScheduler(
+-            self.decay)])
++        verbose=2, callbacks=callbacks)
+     return (history.history['loss'][-1],
+             history.history['accuracy'][-1],
+             history.history['val_loss'][-1],
+@@ -178,6 +181,7 @@ def main(epochs,
+          train_mode='custom_loop',
+          data_dir=None):
+ 
++  wandb.init()
+   model = densenet.DenseNet(mode, growth_rate, output_classes, depth_of_model,
+                             num_of_blocks, num_layers_in_each_block,
+                             data_format, bottleneck, compression, weight_decay,

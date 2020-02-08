@@ -1,0 +1,35 @@
+diff --git a/examples/imagenet/main_amp.py b/examples/imagenet/main_amp.py
+index 14e410c..0d987e0 100644
+--- a/examples/imagenet/main_amp.py
++++ b/examples/imagenet/main_amp.py
+@@ -14,6 +14,7 @@ import torch.utils.data.distributed
+ import torchvision.transforms as transforms
+ import torchvision.datasets as datasets
+ import torchvision.models as models
++import wandb
+ 
+ import numpy as np
+ 
+@@ -138,7 +139,9 @@ def main():
+         print("using apex synced BN")
+         model = apex.parallel.convert_syncbn_model(model)
+ 
++    wandb.init()
+     model = model.cuda()
++    #wandb.watch(model, log="gradients")
+ 
+     # Scale learning rate based on global batch size
+     args.lr = args.lr*float(args.batch_size*args.world_size)/256. 
+@@ -358,6 +361,12 @@ def train(train_loader, model, criterion, optimizer, epoch):
+             batch_time.update((time.time() - end)/args.print_freq)
+             end = time.time()
+ 
++            wandb.log({
++                   "epoch": epoch,
++                   "loss": to_python_float(reduced_loss),
++                   "prec1": to_python_float(prec1),
++                   "prec5": to_python_float(prec5)})
++
+             if args.local_rank == 0:
+                 print('Epoch: [{0}][{1}/{2}]\t'
+                       'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'

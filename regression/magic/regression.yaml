@@ -1,0 +1,108 @@
+version: 0.0
+name: magic-keras-examples
+sources:
+    - keras-examples:
+        url: https://github.com/keras-team/keras.git
+        base: keras
+        #hash: 
+launch:
+    path: keras/examples
+    commands:
+        - deepdream:
+            command:
+                - deep_dream.py
+                - cat.jpg
+                - res_dream_
+        - lstm_seq2seq:
+            command:
+                - lstm_seq2seq.py
+            skip:
+                - py27 # python2 not supported because of encoding issue
+        - cnn_seq2seq:
+            command:
+                - cnn_seq2seq.py
+            skip:
+                - py27 # python2 not supported because of encoding issue
+    prep:
+        - - wget
+          - https://upload.wikimedia.org/wikipedia/commons/c/c7/Great_Pyrenees_Mountain_Dog.jpg
+          - -O
+          - dog.jpg
+        - - wget
+          - https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Kittyplya03042006.JPG/256px-Kittyplya03042006.JPG
+          - -O
+          - cat.jpg
+        - - wget
+          - http://www.manythings.org/anki/fra-eng.zip
+        - - unzip
+          - fra-eng.zip
+        - - mkdir
+          - fra-eng
+        - - mv
+          - fra.txt
+          - fra-eng/
+    patches:  # rooted from regression.yaml dir for now, should be somewhere else, applied in base of git
+        - cifar10.patch
+    commandglob:
+        glob: "*.py"
+        exclude:
+            #- addition_rnn.py  # works
+            - addition_rnn.py # FIXME: works but it is long, many iterations of single epochs - tag this as long so it can be skipped but can be run
+            #- antirectifier.py # works
+            #- babi_memnn.py # works
+            #- babi_rnn.py # works
+            #- lstm_text_generation.py # works
+            - lstm_seq2seq_restore.py # uses result from other script
+            - lstm_seq2seq.py # encoding not supported in py2 - running individually
+            - cnn_seq2seq.py # encoding not supported in py2 - running individually
+            #- cifar10_resnet.py # ValueError: `steps_per_epoch=None` is only valid for a generator based on the `keras.utils.Sequence` class. Please specify `steps_per_epoch` or use the `keras.utils.Sequence` class. 
+            - cifar10_cnn_tfaugment2d.py # ValueError: The shape of the input to "Flatten" is not fully defined (got (None, None, 64). Make sure to pass a complete "input_shape" or "batch_input_shape" argument to the first layer in your model. 
+            #- cifar10_cnn_capsule.py # ValueError: `steps_per_epoch=None` is only valid for a generator based on the `keras.utils.Sequence` class. Please specify `steps_per_epoch` or use the `keras.utils.Sequence` class. 
+            # gone 9/12- cifar10_cnn_capsule.py # ValueError: Can not do batch_dot on inputs with shapes (None, 10, 10, 16) and (None, 10, None, 16) with axes=[2, 3]. x.shape[2] != y.shape[3] (10 != 16).
+            #- cifar10_cnn.py # ValueError: `steps_per_epoch=None` is only valid for a generator based on the `keras.utils.Sequence` class. Please specify `steps_per_epoch` or use the `keras.utils.Sequence` class. 
+            - deep_dream.py # need args
+            - neural_doodle.py # need images and args
+            - neural_style_transfer.py # need images and args
+            ##- mnist_sklearn_wrapper.py # FIXME NEED TO DEBUG - https://app.wandb.ai/jeffr/regression/groups/20190605-0.8.1-feature_import-magic-e51610e-rinexq - grid search not working - works!?
+            - mnist_swwae.py # only run with the Theano backend 
+            - pretrained_word_embeddings.py # FIXME No such file or directory: 'glove.6B/glove.6B.100d.txt' 
+            - reuters_mlp_relu_vs_selu.py # FIXME DEBUG - https://app.wandb.ai/jeffr/regression/runs/m5ax75ep/logs - need to return from fit(fixed?) -- cant override epochs
+            - variational_autoencoder.py # `pydot` failed to call GraphViz.Please install GraphViz (https://www.graphviz.org/)
+            - variational_autoencoder_deconv.py  # pydot` failed to call GraphViz.Please install GraphViz (https://www.graphviz.org/)
+            - image_ocr.py # FIXME: cant override epochs
+            - mnist_acgan.py # FIXME: works but it is too long
+    #timeout:
+    #killtime:
+    timeout: 50m
+    killtime: 60m
+environment:
+    pip:
+        - pip==19.1.1
+        - opencv-python
+        - opencv-contrib-python
+        - pydot
+        - sklearn
+        - cairocffi
+        - editdistance
+        - matplotlib
+        - pillow
+        - pandas
+        - numpy==1.16.1 # https://stackoverflow.com/questions/55890813/how-to-fix-object-arrays-cannot-be-loaded-when-allow-pickle-false-for-imdb-loa
+    variables:
+        WANDB_MAGIC: magic.keras.fit.epochs=2
+        MPLBACKEND: agg
+#components:
+#    tfds:
+#        pip:
+#            - tensorflow-datasets
+variants:
+    - base:
+        - pythons
+        - wandb-run
+        - tf
+        - keras
+    - magic:
+        - pythons
+        - tf
+        - keras
+        - wandb-magic

@@ -1,0 +1,14 @@
+diff --git a/examples/mnist_cnn.py b/examples/mnist_cnn.py
+index 25aa07b..ceee7c0 100644
+--- a/examples/mnist_cnn.py
++++ b/examples/mnist_cnn.py
+@@ -12,7 +12,9 @@ from keras.models import Sequential
+ from keras.layers import Dense, Dropout, Flatten
+ from keras.layers import Conv2D, MaxPooling2D
+ from keras import backend as K
++import wandb
+ 
++wandb.init()
+ batch_size = 128
+ num_classes = 10
+ epochs = 12

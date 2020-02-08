@@ -1,0 +1,72 @@
+version: 0.0
+name: k-examples-mnist-cnn
+short: kex-mnistcnn
+sources:
+    - k-examples-mnistcnn:
+        url: https://github.com/keras-team/keras.git
+        base: keras
+        #hash: 
+launch:
+    path: keras/examples
+    command:
+        - python
+        - mnist_cnn.py
+    timeout: 15m
+    killtime: 20m
+#environment:
+#    pip:
+components:
+    extra:
+        pip:
+            - pillow
+    wandb-init:
+        patches:
+            k-examples-mnistcnn:
+                - wandb-init.patch
+    wandb-callback:
+        patches:
+            k-examples-mnistcnn:
+                - wandb-init-callback.patch 
+    wandb-cbgrad:
+        patches:
+            k-examples-mnistcnn:
+                - wandb-init-callback-grad.patch 
+    wandb-cbfull:
+        patches:
+            k-examples-mnistcnn:
+                - wandb-init-callback-full.patch 
+variants:
+    - base:
+        - pythons
+        - wandb-run
+        - tf
+        - keras
+    - init:
+        - pythons
+        - tf
+        - keras
+        - wandb-cli
+        - wandb-init
+    - callback:
+        - pythons
+        - tf
+        - keras
+        - extra
+        - wandb-cli
+        - wandb-callback
+    - grad:
+        - pythons
+        - tf
+        - keras
+        - extra
+        - wandb-cli
+        - wandb-cbgrad
+        - broken
+    - full:
+        - pythons
+        - tf
+        - keras
+        - extra
+        - wandb-cli
+        - wandb-cbfull
+        - broken

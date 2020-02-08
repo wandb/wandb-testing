@@ -1,0 +1,19 @@
+version: 0.0
+name: wandb-examples-tf-cnn-fashion
+sources:
+    - tensorflow-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/tf-cnn-fashion/
+    command:
+        - python
+        - train.py
+        - --num_steps
+        - 1000
+variants:
+    - init:
+        - pythons
+        - tf
+        - wandb-cli

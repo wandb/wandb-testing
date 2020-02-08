@@ -1,0 +1,36 @@
+version: 0.0
+name: wandb-examples-pt-cnn-mnist
+sources:
+    - tensorflow-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/pytorch-cnn-mnist/
+    command:
+        - python
+        - main.py
+components:
+    extra:
+        pip:
+            - pillow
+    wandb-full:
+        patches:
+            tensorflow-examples:
+                - wandb-full.patch 
+    tbn:
+        pip:
+            - tb-nightly
+variants:
+    - watch:
+        - pythons
+        - torches
+        - extra
+        - wandb-cli
+    - full:
+        - pythons
+        - wandb-full
+        - ptn
+        - tbn
+        - extra
+        - wandb-cli

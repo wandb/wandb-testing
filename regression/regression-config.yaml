@@ -1,0 +1,170 @@
+version: 0.0
+launch:
+    timeout: 10m
+    killtime: 15m
+components:
+    py27:
+        python: 2.7.13
+        tags:
+            - py2
+        pip:
+            - pip==19.3.1
+            - future
+    py36:
+        python: 3.6.4
+        tags:
+            - py3
+        pip:
+            - pip==19.3.1
+    wandb-run:
+        options:
+            - wandb-run
+        pip:
+            - wandb      # wandb supports run args since 0.8.0
+        tags:
+            - base
+    wandb-magic:
+        options:
+            - wandb-magic
+        pip:
+            - git+git://github.com/wandb/client.git@feature/import-magic#egg=wandb
+        tags:
+            - magic
+    python-path:
+        options:
+            - python-path
+    pt:
+        pip:
+            - torchvision
+        tags:
+            - pt
+    pt0.4.1:
+        pip:
+            - torchvision==0.2.1
+            - torch==0.4.1
+        tags:
+            - pt
+            - pto
+    ptn:
+        pip:
+            - numpy
+            - --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
+        tags:
+            - pt
+            - ptn
+    keras:
+        pip:
+            - keras
+        tags:
+            - k
+    keras2.0.9:
+        pip:
+            - keras==2.0.9
+        tags:
+            - k
+            - ko
+    tfn:
+        pip:
+            - tf-nightly-gpu
+        short: tfn
+        tags:
+            - tf
+            - tf1
+            - tf1n
+    tf2n:
+        pip:
+            - tf-nightly-gpu
+        short: tf2n
+        tags:
+            - tf
+            - tf2
+            - tf2n
+    tf:
+        pip:
+            - tensorflow_gpu==1.15.0
+        short: tf
+        tags:
+            - tf
+            - tf1
+    tf1:
+        pip:
+            - tensorflow_gpu==1.15.0
+        short: tf1
+        tags:
+            - tf
+            - tf1
+    tf2:
+        pip:
+            - tensorflow_gpu
+        short: tf2
+        tags:
+            - tf
+            - tf2
+    tf2.0.0:
+        pip:
+            - tensorflow_gpu=2.0.0
+        short: tf2o
+        tags:
+            - tf
+            - tf2
+            - tf2o
+    tf1.14.0:
+        pip:
+            - tensorflow_gpu==1.14.0
+        short: tfo
+        tags:
+            - tf
+            - tf1
+            - tf1o
+    tf1.12.2:
+        pip:
+            - tensorflow_gpu==1.12.2
+        short: tfo
+        tags:
+            - tf
+            - tf1
+            - tf1o
+    tf1.11.0:
+        pip:
+            - tensorflow_gpu==1.11.0
+        short: tfo
+        tags:
+            - tf
+            - tf1
+            - tf1o
+    tf1.10.1:
+        pip:
+            - tensorflow_gpu==1.10.1
+        short: tfo
+        tags:
+            - tf
+            - tf1
+            - tf1o
+    broken:
+        short: bad
+    # Set by regression.py
+    #wandb-cli:
+    #    pip:
+    #        #- git+git://github.com/wandb/client.git@feature/tensorflow2#egg=wandb
+    #        - git+git://github.com/wandb/client.git@797db669bec29094fd2676ba8e35f7840bedf487#egg=wandb
+groups:
+    pythons:
+        - py27
+        - py36
+    torches:
+        - pt
+        - ptn
+        - pt0.4.1
+    torches1plus:
+        - pt
+        - ptn
+    tensorflows:
+        - tf2
+        - tf2n
+    tensorflows1plus:
+        - tf1
+        - tf2
+        - tf2n
+    tf1or2:
+        - tf1
+        - tf2n

@@ -1,0 +1,58 @@
+diff --git a/docker/Dockerfile b/docker/Dockerfile
+index 58b924c..8aaca47 100644
+--- a/docker/Dockerfile
++++ b/docker/Dockerfile
+@@ -49,6 +49,10 @@ RUN git clone https://github.com/cocodataset/cocoapi.git \
+ # install PyTorch Detection
+ RUN git clone https://github.com/facebookresearch/maskrcnn-benchmark.git \
+  && cd maskrcnn-benchmark \
+- && python setup.py build develop
++ && pip install -r requirements.txt \
++ && sed -i -e 's/torch.cuda.is_available()/True/g' setup.py \
++ && python setup.py build develop \
++ && sed -i -e 's/True/torch.cuda.is_available()/g' setup.py 
++
+ 
+ WORKDIR /maskrcnn-benchmark
+diff --git a/maskrcnn_benchmark/engine/trainer.py b/maskrcnn_benchmark/engine/trainer.py
+index 38a9e52..9cc37ba 100644
+--- a/maskrcnn_benchmark/engine/trainer.py
++++ b/maskrcnn_benchmark/engine/trainer.py
+@@ -8,6 +8,7 @@ import torch.distributed as dist
+ 
+ from maskrcnn_benchmark.utils.comm import get_world_size
+ from maskrcnn_benchmark.utils.metric_logger import MetricLogger
++import wandb
+ 
+ 
+ def reduce_loss_dict(loss_dict):
+@@ -101,6 +102,9 @@ def do_train(
+                     memory=torch.cuda.max_memory_allocated() / 1024.0 / 1024.0,
+                 )
+             )
++            for k, v in meters.meters.items():
++                wandb.log({k:v.global_avg}, commit=False)
++            wandb.log({"lr": optimizer.param_groups[0]["lr"], "iter": iteration})
+         if iteration % checkpoint_period == 0:
+             checkpointer.save("model_{:07d}".format(iteration), **arguments)
+         if iteration == max_iter:
+diff --git a/tools/train_net.py b/tools/train_net.py
+index e4f95f0..b029249 100644
+--- a/tools/train_net.py
++++ b/tools/train_net.py
+@@ -24,12 +24,15 @@ from maskrcnn_benchmark.utils.comm import synchronize, get_rank
+ from maskrcnn_benchmark.utils.imports import import_file
+ from maskrcnn_benchmark.utils.logger import setup_logger
+ from maskrcnn_benchmark.utils.miscellaneous import mkdir
++import wandb
+ 
+ 
+ def train(cfg, local_rank, distributed):
++    wandb.init()
+     model = build_detection_model(cfg)
+     device = torch.device(cfg.MODEL.DEVICE)
+     model.to(device)
++    #wandb.watch(model)
+ 
+     optimizer = make_optimizer(cfg, model)
+     scheduler = make_lr_scheduler(cfg, optimizer)
