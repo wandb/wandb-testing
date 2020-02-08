@@ -1,0 +1,26 @@
+version: 0.0
+name: wandb-standalone-sparse-tensors
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+        #hash: 
+launch:
+    path: client/standalone_tests
+    command:
+        - python
+        - sparse_tensors.py
+components:
+    tbn:
+        pip:
+            - tb-nightly
+    extra:
+        pip:
+            - future
+variants:
+    - init:
+        - pythons
+        - wandb-cli
+        - torches1plus
+        - tbn
+        - extra

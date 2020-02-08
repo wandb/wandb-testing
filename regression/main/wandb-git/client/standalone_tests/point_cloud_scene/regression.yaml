@@ -1,0 +1,21 @@
+version: 0.0
+name: wandb-standalone-point-cloud-scene
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+        #hash: 
+launch:
+    path: client/standalone_tests
+    command:
+        - python
+        - test_point_cloud_scene.py
+components:
+    extra:
+        pip:
+            - numpy
+variants:
+    - init:
+        - extra
+        - pythons
+        - wandb-cli

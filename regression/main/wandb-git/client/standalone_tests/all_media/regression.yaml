@@ -1,0 +1,29 @@
+version: 0.0
+name: wandb-standalone-all-media
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+        #hash: 
+launch:
+    path: client/standalone_tests
+    command:
+        - python
+        - all_media_types.py
+components:
+    extra:
+        pip:
+            - numpy
+            - pandas
+            - plotly
+            - matplotlib
+            - pillow
+            - soundfile
+            - fastparquet
+variants:
+    - init:
+        - extra
+        - pythons
+        - wandb-cli
+        - torches1plus
+        - tf1

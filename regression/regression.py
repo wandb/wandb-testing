@@ -350,6 +350,7 @@ class Test(object):
         ret = p.wait()
         if ret != 0:
             print("INFO: exit code: %d" % ret)
+            record_fail('%s:%s' % (self.job_type, self.name))
 
 
 # parse and find groups in variants
@@ -563,6 +564,18 @@ def get_branch_info(branch):
     return o2, o
     
     
+records = []
+def record_fail(s):
+    global records
+    records.append(s)
+
+
+def summary_print():
+    print("\n------------------\n")
+    print("Failed runs:")
+    for num, r in enumerate(records):
+        print("  %3d: %s" % r)
+
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -623,6 +636,8 @@ def main():
         else:
             process(fname, testid, args, branch, cliver, clihash)
         os.chdir(start_path)
+
+    summary_print()
 
 
 if __name__ == "__main__":
