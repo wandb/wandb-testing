@@ -574,7 +574,7 @@ def summary_print():
     print("\n------------------\n")
     print("Failed runs:")
     for num, r in enumerate(records):
-        print("  %3d: %s" % r)
+        print("  %3d: %s" % (num, r))
 
 
 def main():
