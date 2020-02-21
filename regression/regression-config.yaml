@@ -153,7 +153,7 @@ groups:
     pythons:
         - py27
         - py36
-    python3:
+    python3s:
         - py36
     torches:
         - pt
