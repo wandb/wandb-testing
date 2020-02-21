@@ -35,6 +35,7 @@ components:
             - python-path
     pt:
         pip:
+            - torch
             - torchvision
         tags:
             - pt

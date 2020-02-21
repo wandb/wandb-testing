@@ -1,0 +1,16 @@
+version: 0.0
+name: wandb-wandb-examples-pyt-data-parallel
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/wandb-examples.git
+        base: wandb-examples
+launch:
+    path: wandb-examples/pyt-data-parallel
+    command:
+        - python
+        - train.py
+variants:
+    - init:
+        - pythons
+        - torches
+        - wandb-cli
