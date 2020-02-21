@@ -25,11 +25,11 @@ components:
                 - wandb-init.patch
 variants:
     - base:
-        - pythons
+        - pythons3
         - wandb-run
         - tf2n
     - init:
-        - pythons
+        - pythons3
         - tf2n
         - wandb-cli
         - wandb-init
