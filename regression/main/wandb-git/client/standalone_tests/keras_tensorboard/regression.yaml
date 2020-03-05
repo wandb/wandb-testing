@@ -19,5 +19,11 @@ variants:
         - pythons
         - wandb-cli
         - keras
-        - tensorflows1plus
+        - tf1or2
+        - tb
+    - nightly:
+        - python3s
+        - wandb-cli
+        - keras
+        - tfns
         - tb

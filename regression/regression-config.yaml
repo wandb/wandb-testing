@@ -171,4 +171,6 @@ groups:
         - tf2n
     tf1or2:
         - tf1
+        - tf2
+    tfns:
         - tf2n

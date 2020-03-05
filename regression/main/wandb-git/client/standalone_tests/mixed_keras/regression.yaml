@@ -16,3 +16,8 @@ variants:
         - keras
         - tf1or2
         - wandb-cli
+    - nightly:
+        - python3s
+        - keras
+        - tfns
+        - wandb-cli
