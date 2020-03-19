@@ -2,15 +2,15 @@ diff --git a/tensorflow_examples/models/densenet/train.py b/tensorflow_examples/
 index 5696331..37a15a3 100644
 --- a/tensorflow_examples/models/densenet/train.py
 +++ b/tensorflow_examples/models/densenet/train.py
-@@ -23,6 +23,7 @@ import tensorflow as tf # TF2
+@@ -22,6 +22,7 @@
+ import tensorflow as tf
  from tensorflow_examples.models.densenet import densenet
  from tensorflow_examples.models.densenet import utils
- assert tf.__version__.startswith('2')
 +import wandb
  
  
  class Train(object):
-@@ -61,10 +62,12 @@ class Train(object):
+@@ -60,10 +61,12 @@
    def keras_fit(self, train_dataset, test_dataset):
      self.model.compile(
          optimizer=self.optimizer, loss=self.loss_object, metrics=['accuracy'])
@@ -25,7 +25,7 @@ index 5696331..37a15a3 100644
      return (history.history['loss'][-1],
              history.history['accuracy'][-1],
              history.history['val_loss'][-1],
-@@ -178,6 +181,7 @@ def main(epochs,
+@@ -177,6 +180,7 @@
           train_mode='custom_loop',
           data_dir=None):
  

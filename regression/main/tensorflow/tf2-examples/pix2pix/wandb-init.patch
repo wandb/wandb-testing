@@ -2,15 +2,15 @@ diff --git a/tensorflow_examples/models/pix2pix/pix2pix.py b/tensorflow_examples
 index 1cfc1c8..163ed3f 100644
 --- a/tensorflow_examples/models/pix2pix/pix2pix.py
 +++ b/tensorflow_examples/models/pix2pix/pix2pix.py
-@@ -25,6 +25,7 @@ from absl import app
+@@ -25,6 +25,7 @@
  from absl import flags
- import tensorflow as tf # TF2
- assert tf.__version__.startswith('2')
+ 
+ import tensorflow as tf
 +import wandb
  
  FLAGS = flags.FLAGS
  
-@@ -441,6 +442,7 @@ def run_main(argv):
+@@ -493,6 +494,7 @@
  def main(epochs, enable_function, path, buffer_size, batch_size):
    path_to_folder = path
  
