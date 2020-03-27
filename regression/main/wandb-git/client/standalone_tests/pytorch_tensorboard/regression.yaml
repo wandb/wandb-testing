@@ -14,6 +14,9 @@ components:
     tbn:
         pip:
             - tb-nightly
+    tb:
+        pip:
+            - tensorboard
     extra:
         pip:
             - future
@@ -22,5 +25,5 @@ variants:
         - pythons
         - wandb-cli
         - torches1plus
-        - tbn
+        - tb
         - extra
