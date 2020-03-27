@@ -437,7 +437,7 @@ def hack_get_glob(conf, commandglob):
     return commands
 
 
-def process(fname, testid, args, branch, cliver, clihash):
+def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
     # load base
     f = open(args.config).read()
     base = yaml.load(f)
@@ -454,9 +454,9 @@ def process(fname, testid, args, branch, cliver, clihash):
 
     # git+git://github.com/wandb/client.git@797db669bec29094fd2676ba8e35f7840bedf487#egg=wandb
     if args.cli_release:
-        conf["components"]["wandb-cli"] = {"pip": ["wandb==%s" % cliver]}
+        conf["components"]["wandb-cli"] = {"pip": ["%s==%s" % (clibase, cliver)]}
     else:
-        conf["components"]["wandb-cli"] = {"pip": ["git+git://github.com/wandb/client.git@%s#egg=wandb" % clihash]}
+        conf["components"]["wandb-cli"] = {"pip": ["git+git://github.com/%s@%s#egg=%s" % (clirepo, clihash, clibase)]}
 
     dirname = os.path.dirname(os.path.abspath(fname))
     #print("dirname", dirname)
@@ -547,9 +547,9 @@ def process(fname, testid, args, branch, cliver, clihash):
                 print("\n\n")
 
 
-def get_branch_info(branch):
+def get_branch_info(branch, repo):
     #subprocess.check_output(["git", "clone", "--single-branch", "--branch", branch, "-n", "git@github.com:wandb/client.git", "tmp-cli"])
-    subprocess.check_output(["git", "clone", "--single-branch", "--branch", branch, "git@github.com:wandb/client.git", "tmp-cli"])
+    subprocess.check_output(["git", "clone", "--single-branch", "--branch", branch, "git@github.com:" + repo, "tmp-cli"])
     os.chdir("tmp-cli")
     o = subprocess.check_output(["git", "rev-parse", branch])
     o = o.strip()
@@ -589,6 +589,8 @@ def main():
     parser.add_argument("--cli_release", type=str, default=None, help="release name")
     parser.add_argument("--cli_branch", type=str, default=None, help="cli branch")
     parser.add_argument("--cli_hash", type=str, default=None, help="cli hash")
+    parser.add_argument("--cli_base", type=str, default="wandb", help="cli base")
+    parser.add_argument("--cli_repo", type=str, default="wandb/client.git", help="cli base")
     parser.add_argument('tests', metavar='TEST', type=str, nargs='+',
                     help='tests file or directory')
     args = parser.parse_args()
@@ -602,7 +604,7 @@ def main():
             print("ERROR: can not specify branch with release or hash")
             sys.exit(1)
         branch = args.cli_branch
-        cliver, clihash = get_branch_info(args.cli_branch)
+        cliver, clihash = get_branch_info(args.cli_branch, args.cli_repo)
     elif args.cli_release:
         if args.cli_hash:
             print("ERROR: can not specify release with hash")
@@ -615,7 +617,7 @@ def main():
         # branch and release are unknown (these could be known)
     else:
         branch = "master"
-        cliver, clihash = get_branch_info(branch)
+        cliver, clihash = get_branch_info(branch, args.cli_repo)
 
     if args.testid:
         testid = args.testid
@@ -631,10 +633,10 @@ def main():
             for root, dirs, files in os.walk(fname):
                 if args.name in files:
                     #print("INFO: Run", root, args.name)
-                    process(os.path.join(root, args.name), testid, args, branch, cliver, clihash)
+                    process(os.path.join(root, args.name), testid, args, branch, cliver, clihash, args.cli_base, args.cli_repo)
                     os.chdir(start_path)
         else:
-            process(fname, testid, args, branch, cliver, clihash)
+            process(fname, testid, args, branch, cliver, clihash, args.cli_base, args.cli_repo)
         os.chdir(start_path)
 
     summary_print()
