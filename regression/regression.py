@@ -263,6 +263,8 @@ class Test(object):
         l = self.conf.get("launch").get("command")
         # if naked run
         description = "%s\nRelease = %s\nBranch = %s\nHash = %s\n\nBatch = %s\nTest = %s\n" % (self.name, self.cliver, self.branch, self.clihash, self.run_group, self.job_type)
+        name = self.name
+        notes = "Release = %s\nBranch = %s\nHash = %s\n\nBatch = %s\nTest = %s\n" % (self.cliver, self.branch, self.clihash, self.run_group, self.job_type)
         tags = ",".join(self.tags)
         if 'wandb-run' in self.options:
             r = ['wandb', 'run']
@@ -344,7 +346,9 @@ class Test(object):
         #print("RUN:", r)
         #sys.exit(1)
         os.environ["WANDB_PROJECT"] = project
-        os.environ["WANDB_DESCRIPTION"] = description
+        # os.environ["WANDB_DESCRIPTION"] = description
+        os.environ["WANDB_NAME"] = name
+        os.environ["WANDB_NOTES"] = notes
         #subprocess.check_output(r)
         p = subprocess.Popen(r, stdin=0, stdout=1, stderr=2)
         ret = p.wait()
