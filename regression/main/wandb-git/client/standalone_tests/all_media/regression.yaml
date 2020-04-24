@@ -19,6 +19,7 @@ components:
             - matplotlib
             - pillow
             - soundfile
+            - llvmlite==0.31.0  # 0.32.0 drops support for py2.7, llvmlite is needed by fastparquet
             - fastparquet
 variants:
     - init:
