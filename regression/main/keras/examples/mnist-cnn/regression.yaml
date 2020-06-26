@@ -39,24 +39,24 @@ variants:
     - base:
         - pythons
         - wandb-run
-        - tf
+        - tf2
         - keras
     - init:
         - pythons
-        - tf
+        - tf2
         - keras
         - wandb-cli
         - wandb-init
     - callback:
         - pythons
-        - tf
+        - tf2
         - keras
         - extra
         - wandb-cli
         - wandb-callback
     - grad:
         - pythons
-        - tf
+        - tf2
         - keras
         - extra
         - wandb-cli
@@ -64,7 +64,7 @@ variants:
         - broken
     - full:
         - pythons
-        - tf
+        - tf2
         - keras
         - extra
         - wandb-cli

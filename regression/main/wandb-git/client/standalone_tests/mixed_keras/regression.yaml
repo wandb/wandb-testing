@@ -14,7 +14,7 @@ variants:
     - init:
         - pythons
         - keras
-        - tf1or2
+        - tf2
         - wandb-cli
     - nightly:
         - python3s
