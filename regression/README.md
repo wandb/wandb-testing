@@ -50,4 +50,7 @@ At the end of the regression it will spit out some info about failed runs,  then
    ./regression.py main/ --spec wandb-examples-pt-cnn-mnist:full:py36
    # Not sure what will run, use dryrun
    ./regression.py --dryrun main/ --spec ::py27
+   # Run a regression with cling
+   ./regression.py --spec ::~broken --cli_base wandb-ng --cli_repo wandb/client-ng.git main/
+
 ```
