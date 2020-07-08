@@ -1,0 +1,25 @@
+version: 0.0
+name: wandb-examples-pytorch-lightning
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/pytorch-lightning
+    command:
+        - python
+        - mnist.py
+components:
+    pytorch-lightning:
+        pip:
+            - pytorch-lightning
+    torchvision:
+        pip:
+            - torchvision
+variants:
+    - init:
+        - pythons
+        - wandb-cli
+        - torchvision
+        - pytorch-lightning

@@ -16,6 +16,11 @@
     ./do_main_regression.sh
 ```
 
+## Mac setup (not necessary for Linux)
+```
+brew install coreutils
+```
+
 ## Requirements:
 
 - python3
