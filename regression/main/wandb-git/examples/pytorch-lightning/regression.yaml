@@ -19,7 +19,7 @@ components:
             - torchvision
 variants:
     - init:
-        - pythons
+        - python3s
         - wandb-cli
         - torchvision
         - pytorch-lightning
