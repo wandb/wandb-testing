@@ -1,12 +1,13 @@
 version: 0.0
-name: wandb-examples-ignite-mnist
+name: wandb-examples-pytorch-ignite
 sources:
     - wandb-examples:
         url: git@github.com:wandb/examples.git
         base: examples
+        #branch: pytorch-ignite
         #hash: 
 launch:
-    path: examples/ignite-mnist
+    path: examples/pytorch-ignite
     command:
         - python
         - train.py
@@ -21,4 +22,3 @@ variants:
         - python3s
         - wandb-cli
         - pytorch-ignite
-        - broken  # ignite change something?  -- engine.state.metrics['nll'] gone?
