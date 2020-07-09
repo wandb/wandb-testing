@@ -1,0 +1,20 @@
+version: 0.0
+name: borisdayma-fastai-simpsons
+sources:
+    - wandb-examples:
+        url: git@github.com:borisdayma/simpsons-fastai
+        base: simpsons-fastai
+launch:
+    path: simpsons-fastai
+    command:
+        - python
+        - train.py
+components:
+    fastai:
+        pip:
+            - fastai
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - fastai
