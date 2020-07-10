@@ -1,0 +1,54 @@
+version: 0.0
+name: huggingface-transformers
+short: transformers
+sources:
+    - transformers:
+        url: https://github.com/huggingface/transformers.git
+        base: transformers
+launch:
+    path: transformers
+    command:
+        - python
+        - examples/text-classification/run_glue.py
+        - --model_name_or_path
+        - bert-base-uncased
+        - --task_name
+        - MRPC
+        - --data_dir
+        - glue_data/MRPC
+        - --do_train
+        - --do_eval
+        - --evaluate_during_training
+        - --max_seq_length
+        - 256
+        - --per_gpu_train_batch_size
+        - 32
+        - --learning_rate
+        - 2e-4
+        - --max_steps
+        - 1
+        - --output_dir
+        - /tmp/MRPC/
+        - --overwrite_output_dir
+        - --logging_steps
+        - 1
+    timeout: 15m
+    killtime: 20m
+    prep:
+        - - python
+          - utils/download_glue_data.py
+environment:
+    pip:
+        - transformers==3.0.2
+        - tensorflow
+        - sklearn
+    variables:
+        WANDB_PROJECT: huggingface-demo
+        GLUE_DIR: glue_data
+        TASK_NAME: MRPC
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - torches
+
