@@ -21,6 +21,6 @@ variants:
     - init:
         - pythons
         - extra
-        - keras
+        - keras2.3.1
         - tf
         - wandb-cli
