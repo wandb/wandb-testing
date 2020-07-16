@@ -50,5 +50,5 @@ variants:
     - init:
         - python3s
         - wandb-cli
-        - torches
+        - torches1plus
 
