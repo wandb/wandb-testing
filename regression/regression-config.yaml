@@ -65,6 +65,12 @@ components:
         tags:
             - k
             - ko
+    keras2.3.1:
+        pip:
+            - keras==2.3.1
+        tags:
+            - k
+            - ko
     tfn:
         pip:
             - tf-nightly-gpu

@@ -13,7 +13,7 @@ launch:
 variants:
     - init:
         - pythons
-        - keras
+        - keras2.3.1
         - tf2
         - wandb-cli
     - nightly:

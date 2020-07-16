@@ -37,25 +37,25 @@ components:
                 - wandb-init-callback-full.patch 
 variants:
     - base:
-        - pythons
+        - python3s
         - wandb-run
         - tf2
         - keras
     - init:
-        - pythons
+        - python3s
         - tf2
         - keras
         - wandb-cli
         - wandb-init
     - callback:
-        - pythons
+        - python3s
         - tf2
         - keras
         - extra
         - wandb-cli
         - wandb-callback
     - grad:
-        - pythons
+        - python3s
         - tf2
         - keras
         - extra
@@ -63,7 +63,7 @@ variants:
         - wandb-cbgrad
         - broken
     - full:
-        - pythons
+        - python3s
         - tf2
         - keras
         - extra
