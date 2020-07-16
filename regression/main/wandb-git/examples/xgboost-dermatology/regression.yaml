@@ -1,0 +1,22 @@
+version: 0.0
+name: wandb-examples-xgboost-dermatology
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/xgboost-dermatology
+    command:
+        - python
+        - train.py
+components:
+    xgboost:
+        pip:
+            - xgboost
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - xgboost
+
