@@ -1,0 +1,22 @@
+version: 0.0
+name: sklearn-clustering
+short: sklearn
+sources:
+    - examples:
+        url: https://github.com/wandb/examples.git
+        base: examples
+launch:
+    path: examples
+    command:
+        - python
+        - sklearn-clustering/train.py
+    timeout: 1m
+    killtime: 2m
+environment:
+    pip:
+        - sklearn
+variants:
+    - init:
+        - pythons
+        - wandb-cli
+
