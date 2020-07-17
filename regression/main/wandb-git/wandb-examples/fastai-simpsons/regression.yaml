@@ -1,0 +1,25 @@
+version: 0.0
+name: wandb-wandb-examples-fastai-simpsons
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/wandb-examples.git
+        base: wandb-examples
+launch:
+    path: wandb-examples/fastai-simpsons
+    command:
+        - python
+        - train_sweep.py
+    timeout: 25m
+    killtime: 30m
+environment:
+    variables:
+        WANDB_CONFIG_PATHS: config-short.yaml
+components:
+    fastai:
+        pip:
+            - fastai
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - fastai
