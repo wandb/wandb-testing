@@ -1,0 +1,22 @@
+version: 0.0
+name: wandb-examples-lightgbm-regression
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/lightgbm-regression
+    command:
+        - python
+        - train.py
+components:
+    lightgbm:
+        pip:
+            - lightgbm
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - xgboost
+
