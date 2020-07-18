@@ -13,10 +13,11 @@ launch:
 components:
     lightgbm:
         pip:
+            - pandas
             - lightgbm
 variants:
     - init:
         - python3s
         - wandb-cli
-        - xgboost
+        - lightgbm
 
