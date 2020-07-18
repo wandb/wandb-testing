@@ -261,6 +261,32 @@ class Test(object):
             subprocess.check_output(cmd)
 
 
+    def env_save(self):
+        self._env_capture = dict(os.environ.copy())
+
+    def env_restore(self):
+        # undo environment
+        for evk, evv in six.iteritems(self._env_capture):
+            os.environ[evk] = evv
+        for evk in os.environ.keys():
+            if evk not in self._env_capture:
+                del os.environ[evk]
+
+    def check(self):
+        c = self.conf.get("check")
+        if not c:
+            return
+        cwd = os.getcwd()
+        os.chdir(self.dirname)
+        l = c.get("command")
+        p = subprocess.Popen(l, stdin=0, stdout=1, stderr=2)
+        ret = p.wait()
+        if ret != 0:
+            print("INFO: exit code: %d" % ret)
+            record_fail('%s:%s' % (self.job_type, self.name))
+            self.failed = True
+        os.chdir(cwd)
+
     def launch(self):
         l = self.conf.get("launch").get("command")
         # if naked run
@@ -354,9 +380,11 @@ class Test(object):
         #subprocess.check_output(r)
         p = subprocess.Popen(r, stdin=0, stdout=1, stderr=2)
         ret = p.wait()
+        self.failed = False
         if ret != 0:
             print("INFO: exit code: %d" % ret)
             record_fail('%s:%s' % (self.job_type, self.name))
+            self.failed = True
 
 
 # parse and find groups in variants
@@ -545,17 +573,18 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
                 print("#" * 40)
                 if args.dryrun:
                     continue
-                env_capture = dict(os.environ.copy())
+
+                t.env_save()
                 t.cleanup()
                 t.prepare()
                 t.prepare0()
                 t.prepare2()
                 t.launch()
-                for evk, evv in six.iteritems(env_capture):
-                    os.environ[evk] = evv
-                for evk in os.environ.keys():
-                    if evk not in env_capture:
-                        del os.environ[evk]
+                t.failed = False
+                if not t.failed:
+                    t.check()
+                t.env_restore()
+
                 print("\n\n")
 
 

@@ -20,3 +20,7 @@ variants:
         - wandb-cli
         - gym
 
+check:
+    command:
+        - python
+        - check.py
