@@ -200,6 +200,7 @@ class Test(object):
     def cleanup(self):
         #vs = ["PYENV_VERSION", "PYENV_VIRTUALENV_INIT", "PYENV_VIRTUAL_ENV", "PYENV_SHELL", "VIRTUAL_ENV", "PYENV_ROOT", "PYENV_HOOK_PATH"]
         vs = []
+        #vs = os.environ.keys()
         for v in vs:
             os.environ.pop(v, None)
             if v in os.environ:
@@ -544,11 +545,17 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
                 print("#" * 40)
                 if args.dryrun:
                     continue
+                env_capture = dict(os.environ.copy())
                 t.cleanup()
                 t.prepare()
                 t.prepare0()
                 t.prepare2()
                 t.launch()
+                for evk, evv in six.iteritems(env_capture):
+                    os.environ[evk] = evv
+                for evk in os.environ.keys():
+                    if evk not in env_capture:
+                        del os.environ[evk]
                 print("\n\n")
 
 
