@@ -551,7 +551,10 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
                 #d = dict(zip(params, g))
                 vname = list(variant.keys()).pop()
                 name = conf.get("name")
-                if tspec and tspec != name:
+                #if tspec and tspec != name:
+                #    continue
+                # allow partial match
+                if tspec and not name.startswith(tspec):
                     continue
                 #if args.dryrun:
                 #    continue
