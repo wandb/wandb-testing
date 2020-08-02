@@ -1,0 +1,35 @@
+version: 0.0
+name: wandb-examples-tensorboard-tf2-images
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/tensorboard-tf2-images
+    command:
+        - python
+        - train.py
+environment:
+    pip:
+        - six
+        - numpy
+        - packaging
+components:
+    tb:
+        pip:
+            - tensorboard
+    sklearn:
+        pip:
+            - sklearn
+    matplot:
+        pip:
+            - matplotlib
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - matplot
+        - sklearn
+        - tf2
+        - tb

@@ -1,0 +1,22 @@
+version: 0.0
+name: wandb-examples-tensorboard-tf2-gradienttape
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/tensorboard-tf2-gradienttape
+    command:
+        - python
+        - train.py
+components:
+    tb:
+        pip:
+            - tensorboard
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - tf2
+        - tb
