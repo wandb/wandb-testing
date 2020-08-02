@@ -482,10 +482,10 @@ def hack_get_glob(conf, commandglob):
 def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
     # load base
     f = open(args.config).read()
-    base = yaml.load(f)
+    base = yaml.load(f, Loader=yaml.SafeLoader)
     
     f = open(fname).read()
-    conf = yaml.load(f)
+    conf = yaml.load(f, Loader=yaml.SafeLoader)
 
     #print("BASE", base)
     #print("CONF", conf)
