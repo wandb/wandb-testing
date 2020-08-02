@@ -34,6 +34,13 @@ CONF="regression-config.yaml"
 #p = subprocess.Popen(sys.argv, stdin=0, stdout=1, stderr=2)
 #ret = p.wait()
 
+import shortuuid
+
+def generate_id():
+    # ~3t run ids (36**8)
+    run_gen = shortuuid.ShortUUID(alphabet=list("0123456789abcdefghijklmnopqrstuvwxyz"))
+    return run_gen.random(8)
+
 def getdatestr():
     now = datetime.datetime.now()
     return now.strftime("%Y%m%d")
@@ -377,6 +384,7 @@ class Test(object):
         # os.environ["WANDB_DESCRIPTION"] = description
         os.environ["WANDB_NAME"] = name
         os.environ["WANDB_NOTES"] = notes
+        os.environ["WANDB_RUN_ID"] = "r-" + generate_id()
         #subprocess.check_output(r)
         p = subprocess.Popen(r, stdin=0, stdout=1, stderr=2)
         ret = p.wait()

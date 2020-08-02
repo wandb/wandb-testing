@@ -1,3 +1,4 @@
 pyyaml
 six
 wandb
+shortuuid
