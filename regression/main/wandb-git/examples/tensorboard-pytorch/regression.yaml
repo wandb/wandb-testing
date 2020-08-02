@@ -1,12 +1,12 @@
 version: 0.0
-name: wandb-examples-pytorch-tensorboard
+name: wandb-examples-tensorboard-pytorch
 sources:
     - wandb-examples:
         url: git@github.com:wandb/examples.git
         base: examples
         #hash: 
 launch:
-    path: examples/pytorch-tensorboard
+    path: examples/tensorboard-pytorch
     command:
         - python
         - train.py
