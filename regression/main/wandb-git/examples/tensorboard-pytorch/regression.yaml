@@ -24,3 +24,7 @@ variants:
         - matplot
         - pt
         - tb
+check:
+    command:
+        - python
+        - check.py

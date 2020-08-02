@@ -33,3 +33,7 @@ variants:
         - sklearn
         - tf2
         - tb
+check:
+    command:
+        - python
+        - check.py
