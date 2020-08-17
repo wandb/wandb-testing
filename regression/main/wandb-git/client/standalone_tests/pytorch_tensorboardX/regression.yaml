@@ -17,9 +17,13 @@ components:
     extra:
         pip:
             - future
+    tb:
+        pip:
+            - tensorboard
 variants:
     - init:
         - pythons
         - wandb-cli
         - torches1plus
         - tbx
+        - tb
