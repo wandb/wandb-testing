@@ -26,8 +26,8 @@ components:
     wandb-magic:
         options:
             - wandb-magic
-        pip:
-            - git+git://github.com/wandb/client.git@feature/import-magic#egg=wandb
+        # pip:
+        #     - git+git://github.com/wandb/client.git@feature/import-magic#egg=wandb
         tags:
             - magic
     python-path:

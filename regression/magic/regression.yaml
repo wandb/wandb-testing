@@ -97,12 +97,13 @@ environment:
 #            - tensorflow-datasets
 variants:
     - base:
-        - pythons
+        - python3s
         - wandb-run
-        - tf
+        - tf2
         - keras
     - magic:
-        - pythons
-        - tf
+        - python3s
+        - tf2
         - keras
+        - wandb-cli
         - wandb-magic
