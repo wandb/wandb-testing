@@ -14,8 +14,12 @@ last_run = api.run("%s/%s" % (project, run_id))
 assert last_run.summary_metrics["global_step"] == 14999
 assert last_run.summary_metrics["training loss"] > 0
 image1 = last_run.summary_metrics["four_fashion_mnist_images"]
-assert image1.get("_type") == "images"
+image1_type = image1.get("_type")
+#assert image1.get("_type") == "images"
+assert image1_type.startswith("images")
 assert image1.get("count") == 1
 image2 = last_run.summary_metrics["predictions vs. actuals"]
-assert image2.get("_type") == "images"
+image2_type = image1.get("_type")
+#assert image2.get("_type") == "images"
+assert image2_type.startswith("images")
 assert image2.get("count") == 1
