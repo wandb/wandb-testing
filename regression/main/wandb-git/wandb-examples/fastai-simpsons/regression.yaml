@@ -17,7 +17,7 @@ environment:
 components:
     fastai:
         pip:
-            - fastai
+            - fastai<2.0.0
 variants:
     - init:
         - python3s
