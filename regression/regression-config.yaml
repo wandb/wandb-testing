@@ -148,6 +148,18 @@ components:
             - tf
             - tf1
             - tf1o
+    fastai1:
+        pip:
+            - fastai<2.0.0
+        tags:
+            - fa
+            - fa1
+    fastai2:
+        pip:
+            - fastai>=2.0.0
+        tags:
+            - fa
+            - fa2
     broken:
         short: bad
     # Set by regression.py
