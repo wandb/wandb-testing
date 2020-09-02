@@ -1,7 +1,7 @@
-diff --git a/pytorch-cnn-mnist/main.py b/pytorch-cnn-mnist/main.py
+diff --git a/examples/pytorch/pytorch-cnn-mnist/main.py b/examples/pytorch/pytorch-cnn-mnist/main.py
 index bf16956..9010c9d 100644
---- a/pytorch-cnn-mnist/main.py
-+++ b/pytorch-cnn-mnist/main.py
+--- a/examples/pytorch/pytorch-cnn-mnist/main.py
++++ b/examples/pytorch/pytorch-cnn-mnist/main.py
 @@ -6,6 +6,7 @@ import torch.nn.functional as F
  import torch.optim as optim
  from torchvision import datasets, transforms

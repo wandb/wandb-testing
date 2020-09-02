@@ -6,10 +6,12 @@ sources:
         base: examples
         #hash: 
 launch:
-    path: examples/pytorch-cnn-mnist/
+    path: examples/examples/pytorch/pytorch-cnn-mnist/
     command:
         - python
         - main.py
+        - --epochs
+        - 1
 components:
     extra:
         pip:
