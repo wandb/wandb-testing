@@ -6,7 +6,7 @@ sources:
         base: examples
         #hash: 
 launch:
-    path: examples/pytorch-lightning
+    path: examples/examples/pytorch-lightning
     command:
         - python
         - mnist.py
