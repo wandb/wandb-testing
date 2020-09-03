@@ -6,10 +6,10 @@ sources:
         url: git@github.com:wandb/examples.git
         base: examples
 launch:
-    path: examples
+    path: examples/examples/scikit/scikit-clustering
     command:
         - python
-        - scikit-clustering/train.py
+        - train.py
     timeout: 1m
     killtime: 2m
 environment:
@@ -22,6 +22,6 @@ environment:
         MPLBACKEND: agg
 variants:
     - init:
-        - pythons
+        - python3s
         - wandb-cli
 
