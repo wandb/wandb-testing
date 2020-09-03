@@ -6,7 +6,7 @@ sources:
         base: examples
         #hash: 
 launch:
-    path: examples/tensorboard-tf2-images
+    path: examples/examples/tensorboard/tensorboard-tf2-images
     command:
         - python
         - train.py

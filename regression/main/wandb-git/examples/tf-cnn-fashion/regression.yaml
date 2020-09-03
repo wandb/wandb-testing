@@ -6,7 +6,7 @@ sources:
         base: examples
         #hash: 
 launch:
-    path: examples/tf-cnn-fashion/
+    path: examples/examples/tensorflow/tf-cnn-fashion/
     command:
         - python
         - train.py

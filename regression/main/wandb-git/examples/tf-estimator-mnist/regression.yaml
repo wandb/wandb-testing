@@ -6,7 +6,7 @@ sources:
         base: examples
         #hash: 
 launch:
-    path: examples/tf-estimator-mnist/
+    path: examples/examples/tensorflow/tf-estimator-mnist/
     command:
         - python
         - mnist.py

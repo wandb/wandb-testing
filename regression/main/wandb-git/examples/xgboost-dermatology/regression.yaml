@@ -6,7 +6,7 @@ sources:
         base: examples
         #hash: 
 launch:
-    path: examples/xgboost-dermatology
+    path: examples/examples/boosting-algorithms/xgboost-dermatology
     command:
         - python
         - train.py
