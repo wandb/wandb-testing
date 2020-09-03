@@ -6,7 +6,7 @@ sources:
         base: examples
         #hash: 
 launch:
-    path: examples/boosting-algorithms/lightgbm-regression
+    path: examples/examples/boosting-algorithms/lightgbm-regression
     command:
         - python
         - train.py

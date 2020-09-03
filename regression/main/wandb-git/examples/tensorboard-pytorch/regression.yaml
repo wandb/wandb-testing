@@ -6,7 +6,7 @@ sources:
         base: examples
         #hash: 
 launch:
-    path: examples/tensorboard-pytorch
+    path: examples/examples/tensorboard/tensorboard-pytorch
     command:
         - python
         - train.py
