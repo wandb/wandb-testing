@@ -1,0 +1,36 @@
+version: 0.0
+name: wandb-examples-resume-auto
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/examples/wandb-resume/
+    command:
+        - once:
+              - python
+              - train-auto-resume.py
+              - --test_epochs
+              - 4
+        - twice:
+              - python
+              - train-auto-resume.py
+              - --test_epochs
+              - 8
+        - threetimes:
+              - python
+              - train-auto-resume.py
+environment:
+    pip:
+        - pillow
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - tf2
+        - keras
+check:
+    command:
+        - python
+        - check.py
