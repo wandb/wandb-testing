@@ -369,30 +369,45 @@ class Test(object):
         #os.chdir(self.pathname)
         #os.chdir(pth)
 
-        r = [os.path.expanduser(str(i)) for i in l]
-        print("INFO: Running", ' '.join(r))
-        project = "regression"
-        if self.args.project:
-            project = self.args.project
-        # timeout -k 90s -s TERM 5s sleep 20
-        r = ["pyenv", "exec"] + r
-        if timeout and killtime:
-            r = ["timeout", "-k", killtime, "-s", "TERM", timeout] + r
-        #print("RUN:", r)
-        #sys.exit(1)
-        os.environ["WANDB_PROJECT"] = project
-        # os.environ["WANDB_DESCRIPTION"] = description
-        os.environ["WANDB_NAME"] = name
-        os.environ["WANDB_NOTES"] = notes
-        os.environ["WANDB_RUN_ID"] = "r-" + generate_id()
-        #subprocess.check_output(r)
-        p = subprocess.Popen(r, stdin=0, stdout=1, stderr=2)
-        ret = p.wait()
-        self.failed = False
-        if ret != 0:
-            print("INFO: exit code: %d" % ret)
-            record_fail('%s:%s' % (self.job_type, self.name))
-            self.failed = True
+        l_list = []
+        if l and isinstance(l[0], dict):
+            for num, command_dict in enumerate(l):
+                lsetting = {}
+                # HACK: ignore return code if we are a list and not last
+                if num != len(l) - 1:
+                    lsetting["ignore"] = True
+                for _, v in command_dict.items():
+                    l_list.append((lsetting, v))
+        else:
+            lsetting = {}
+            l_list.append((lsetting, l))
+
+        generated_id = generate_id()
+        for l_settings, l in l_list:
+            r = [os.path.expanduser(str(i)) for i in l]
+            print("INFO: Cool Running", ' '.join(r))
+            project = "regression"
+            if self.args.project:
+                project = self.args.project
+            # timeout -k 90s -s TERM 5s sleep 20
+            r = ["pyenv", "exec"] + r
+            if timeout and killtime:
+                r = ["timeout", "-k", killtime, "-s", "TERM", timeout] + r
+            #print("RUN:", r)
+            #sys.exit(1)
+            os.environ["WANDB_PROJECT"] = project
+            # os.environ["WANDB_DESCRIPTION"] = description
+            os.environ["WANDB_NAME"] = name
+            os.environ["WANDB_NOTES"] = notes
+            os.environ["WANDB_RUN_ID"] = "r-" + generated_id
+            #subprocess.check_output(r)
+            p = subprocess.Popen(r, stdin=0, stdout=1, stderr=2)
+            ret = p.wait()
+            self.failed = False
+            if not l_settings.get("ignore") and ret != 0:
+                print("INFO: exit code: %d" % ret)
+                record_fail('%s:%s' % (self.job_type, self.name))
+                self.failed = True
 
 
 # parse and find groups in variants
