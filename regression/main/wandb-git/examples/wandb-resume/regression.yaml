@@ -11,16 +11,20 @@ launch:
         - once:
               - python
               - train-auto-resume.py
-              - --test_epochs
+              - --test_num_epochs
               - 4
         - twice:
               - python
               - train-auto-resume.py
-              - --test_epochs
+              - --test_no_config
+              - --test_must_resume
+              - --test_num_epochs
               - 8
         - threetimes:
               - python
               - train-auto-resume.py
+              - --test_no_config
+              - --test_must_resume
 environment:
     pip:
         - pillow
