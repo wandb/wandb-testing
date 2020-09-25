@@ -1,0 +1,20 @@
+version: 0.0
+name: wandb-examples-fastai2-mnist
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+launch:
+    path: examples/examples/fastai/fastai-basics
+    command:
+        - python
+        - fastai-mnist.py
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - fastai2
+check:
+    command:
+        - python
+        - check.py
