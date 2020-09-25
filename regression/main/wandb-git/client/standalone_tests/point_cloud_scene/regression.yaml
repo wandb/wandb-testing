@@ -9,7 +9,7 @@ launch:
     path: client/standalone_tests
     command:
         - python
-        - test_point_cloud_scene.py
+        - point_cloud_scene.py
 components:
     extra:
         pip:
