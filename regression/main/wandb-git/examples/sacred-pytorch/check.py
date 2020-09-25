@@ -11,8 +11,7 @@ last_run = api.run("%s/%s" % (project, run_id))
 #
 # Test Checks
 #
-# TODO: integration is broken:
-#assert last_run.summary_metrics["accuracy"] > 90
+assert last_run.summary_metrics["accuracy"] > 90
 assert last_run.summary_metrics["Batch_loss"] < 1
 image1 = last_run.summary_metrics["Images"]
 image1_type = image1.get("_type")
