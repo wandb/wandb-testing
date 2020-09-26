@@ -1,1 +1,4 @@
 .python-version
+bin/minio
+logs/minio.log
+data/*

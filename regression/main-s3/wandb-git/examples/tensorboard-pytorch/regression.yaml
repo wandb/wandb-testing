@@ -1,0 +1,36 @@
+version: 0.0
+name: wandb-examples-tensorboard-pytorch
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+launch:
+    path: examples/examples/tensorboard/tensorboard-pytorch
+    command:
+        - python
+        - train.py
+        - --log_dir
+        - s3://mybucket/tb-pyt
+components:
+    tb:
+        pip:
+            - tensorboard
+    matplot:
+        pip:
+            - matplotlib
+    boto:
+        pip:
+            - boto3
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - matplot
+        - pt
+        - tb
+        - boto
+check:
+    command:
+        - python
+        - check.py
