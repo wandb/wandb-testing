@@ -1,12 +1,11 @@
 version: 0.0
-name: wandb-examples-tensorboard-tf2-images
+name: wandb-wandb-examples-tensorboard-tf2-images
 sources:
     - wandb-examples:
-        url: git@github.com:wandb/examples.git
-        base: examples
-        #hash: 
+        url: git@github.com:wandb/wandb-examples.git
+        base: wandb-examples
 launch:
-    path: examples/examples/tensorboard/tensorboard-tf2-images
+    path: wandb-examples/tensorboard-tf2-images
     command:
         - python
         - train.py
