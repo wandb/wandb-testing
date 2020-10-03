@@ -1,0 +1,27 @@
+version: 0.0
+name: wandb-examples-raytune-pytorch
+sources:
+    - wandb-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+launch:
+    path: examples/examples/ray-tune
+    command:
+        - python
+        - pytorch-test.py
+        - -p
+        - regression-raytune-${WANDB_RUN_ID}
+components:
+    raytune:
+        pip:
+            - ray[tune]
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - torches1plus
+        - raytune
+check:
+    command:
+        - python
+        - check.py
