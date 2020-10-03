@@ -67,6 +67,21 @@ def gettestid(branch, cliver, clihash):
     branch = branch.replace("/", "_")
     return '%s-%s-%s-%s-%s' % (getdatestr(), cliver, branch, clihash[:7], getid())
 
+
+def macro_replace(s):
+    # TODO: support multiple macro replacements
+    start = s.find("${")
+    if start < 0:
+        return s
+    end = s.find("}", start)
+    if end < 0:
+        return s
+    macro = s[start+2:end]
+    val = os.environ[macro]
+    s = s[:start] + val + s[end+1:]
+    return s
+
+
 class Test(object):
     def __init__(self):
         self.options = []
@@ -150,7 +165,7 @@ class Test(object):
                     print("DEBUG:", ['pyenv', 'exec', 'pip', 'install', '--upgrade'] + p)
                     reg_subprocess_retry(['pyenv', 'exec', 'pip', 'install', '--upgrade'] + p)
                 else:
-                    print("DEBUG2:", ['pyenv', 'exec', 'pip', 'install'] + p)
+                    #print("DEBUG2:", ['pyenv', 'exec', 'pip', 'install'] + p)
                     reg_subprocess_retry(['pyenv', 'exec', 'pip', 'install'] + p)
             for k, v in patches.items():
                 for p in v:
@@ -242,7 +257,7 @@ class Test(object):
                 reg_subprocess_retry(['pyenv', 'exec', 'pip', 'install', '--upgrade', p])
             else:
                 reg_subprocess_retry(['pyenv', 'exec', 'pip', 'install', p])
-        o = subprocess.check_output(["pyenv", "exec", "pip", "list"])
+        o = subprocess.check_output(["pyenv", "exec", "pip", "list", "--format=legacy"])
         #print("LIST:", o)
         #old = ['tf-nightly-2.0-preview', 'tf-nightly-gpu-2.0-preview', 'tf-nightly', 'tf-nightly-gpu', 'tensorflow', 'tensorflow_gpu']
         #for p in old:
@@ -390,9 +405,6 @@ class Test(object):
             if self.args.project:
                 project = self.args.project
             # timeout -k 90s -s TERM 5s sleep 20
-            r = ["pyenv", "exec"] + r
-            if timeout and killtime:
-                r = ["timeout", "-k", killtime, "-s", "TERM", timeout] + r
             #print("RUN:", r)
             #sys.exit(1)
             os.environ["WANDB_PROJECT"] = project
@@ -401,6 +413,15 @@ class Test(object):
             os.environ["WANDB_NOTES"] = notes
             os.environ["WANDB_RUN_ID"] = "r-" + generated_id
             #subprocess.check_output(r)
+
+            # expand macros if needed
+            r = [macro_replace(ri) for ri in r]
+
+            # wrap run with pyenv and timeout if needed
+            r = ["pyenv", "exec"] + r
+            if timeout and killtime:
+                r = ["timeout", "-k", killtime, "-s", "TERM", timeout] + r
+
             p = subprocess.Popen(r, stdin=0, stdout=1, stderr=2)
             ret = p.wait()
             self.failed = False

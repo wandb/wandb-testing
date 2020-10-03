@@ -8,14 +8,14 @@ components:
         tags:
             - py2
         pip:
-            - pip==19.3.1
+            - pip>=19.3.1
             - future
     py36:
         python: 3.6.4
         tags:
             - py3
         pip:
-            - pip==19.3.1
+            - pip>=19.3.1
     wandb-run:
         options:
             - wandb-run
