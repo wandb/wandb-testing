@@ -109,12 +109,15 @@ class Test(object):
         instance = self.conf.get("name", "unknown")
         vname = list(self.variant.keys()).pop()
         gname = '-'.join(self.vals)
+        reg_gname = ','.join(self.vals)
         fullname = '%s_%s_%s_%s' % (self.testid, instance, vname, gname)
         self.run_group = self.testid
         self.job_type = instance
+        self.reg_name = vname
         self.name = vname
         if gname:
             self.name += "_" + gname
+            self.reg_name += ":" + reg_gname
         pathname = "%s/%s" % (base, fullname)
         self.pathname = pathname
         if not os.path.isdir(pathname):
@@ -258,7 +261,7 @@ class Test(object):
                 reg_subprocess_retry(['pyenv', 'exec', 'pip', 'install', '--upgrade', p])
             else:
                 reg_subprocess_retry(['pyenv', 'exec', 'pip', 'install', p])
-        o = subprocess.check_output(["pyenv", "exec", "pip", "list", "--format=legacy"])
+        #o = subprocess.check_output(["pyenv", "exec", "pip", "list", "--format=columns"])
         #print("LIST:", o)
         #old = ['tf-nightly-2.0-preview', 'tf-nightly-gpu-2.0-preview', 'tf-nightly', 'tf-nightly-gpu', 'tensorflow', 'tensorflow_gpu']
         #for p in old:
@@ -306,7 +309,7 @@ class Test(object):
         ret = p.wait()
         if ret != 0:
             print("INFO: exit code: %d" % ret)
-            record_fail('%s:%s' % (self.job_type, self.name))
+            record_failed('%s:%s' % (self.job_type, self.reg_name))
             self.failed = True
         os.chdir(cwd)
 
@@ -426,10 +429,14 @@ class Test(object):
             p = subprocess.Popen(r, stdin=0, stdout=1, stderr=2)
             ret = p.wait()
             self.failed = False
-            if not l_settings.get("ignore") and ret != 0:
+            if l_settings.get("ignore"):
+                continue
+            if ret != 0:
                 print("INFO: exit code: %d" % ret)
-                record_fail('%s:%s' % (self.job_type, self.name))
+                record_failed('%s:%s' % (self.job_type, self.reg_name))
                 self.failed = True
+            else:
+                record_alltests('%s:%s' % (self.job_type, self.reg_name))
 
 
 # parse and find groups in variants
@@ -577,8 +584,12 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
                 conf["name"] = orig_name
         for variant in variants:
             vname = list(variant.keys()).pop()
-            if vspec and vspec != vname:
-                continue
+            if vspec:
+                if vspec.startswith("~"):
+                    if vspec[1:] == vname:
+                        continue
+                elif vspec != vname:
+                    continue
             params, vals, gsfilter = gengroups(conf, vname, gspec)
             for g in vals:
                 skip_items = cdict.get("skip", [])
@@ -653,16 +664,34 @@ def get_branch_info(branch, repo):
     return o2, o
     
     
-records = []
-def record_fail(s):
-    global records
-    records.append(s)
+failed = []
+alltests = []
+
+def record_failed(s):
+    global failed
+    failed.append(s)
+
+def record_alltests(s):
+    global alltests
+    alltests.append(s)
 
 
 def summary_print():
     print("\n------------------\n")
+    f = []
+
+    num = 0
+    print("Good runs:")
+    for r in alltests:
+        if r in failed:
+            if r not in f:
+                f.append(r)
+            continue
+        print("  %3d: %s" % (num, r))
+        num += 1
+
     print("Failed runs:")
-    for num, r in enumerate(records):
+    for num, r in enumerate(f):
         print("  %3d: %s" % (num, r))
 
 
