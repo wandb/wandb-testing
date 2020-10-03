@@ -11,7 +11,9 @@ api = wandb.Api()
 #
 # Test Checks
 #
-project = "{}-raytune-{}".format(project, run_id)
+run_group = os.environ.get("WANDB_RUN_GROUP")
+run_name = os.environ.get("WANDB_NAME")
+project = "{}-raytune-{}-{}".format(project, run_group, run_name)
 runs = list(api.runs(project))
 assert len(runs) == 6
 uniq = {(r.config["lr"], r.config["momentum"]) for r in runs}

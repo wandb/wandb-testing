@@ -69,7 +69,6 @@ def gettestid(branch, cliver, clihash):
 
 
 def macro_replace(s):
-    # TODO: support multiple macro replacements
     start = s.find("${")
     if start < 0:
         return s
@@ -79,6 +78,8 @@ def macro_replace(s):
     macro = s[start+2:end]
     val = os.environ[macro]
     s = s[:start] + val + s[end+1:]
+    # recursively replace macros
+    s = macro_replace(s)
     return s
 
 

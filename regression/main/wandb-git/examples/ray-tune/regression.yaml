@@ -10,7 +10,7 @@ launch:
         - python
         - pytorch-test.py
         - -p
-        - regression-raytune-${WANDB_RUN_ID}
+        - regression-raytune-${WANDB_RUN_GROUP}-${WANDB_NAME}
 components:
     raytune:
         pip:
