@@ -694,6 +694,9 @@ def summary_print():
     for num, r in enumerate(f):
         print("  %3d: %s" % (num, r))
 
+    if f:
+        sys.exit(1)
+
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
