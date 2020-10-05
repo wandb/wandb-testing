@@ -431,12 +431,11 @@ class Test(object):
             self.failed = False
             if l_settings.get("ignore"):
                 continue
+            record_alltests('%s:%s' % (self.job_type, self.reg_name))
             if ret != 0:
                 print("INFO: exit code: %d" % ret)
                 record_failed('%s:%s' % (self.job_type, self.reg_name))
                 self.failed = True
-            else:
-                record_alltests('%s:%s' % (self.job_type, self.reg_name))
 
 
 # parse and find groups in variants
