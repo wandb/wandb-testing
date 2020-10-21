@@ -4,7 +4,6 @@ sources:
     - wandb-client:
         url: git@github.com:wandb/client.git
         base: client
-        branch: test/grpc-sync
 launch:
     path: client/standalone_tests
     command:
