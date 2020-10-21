@@ -5,7 +5,7 @@ sources:
     - k-examples-mnistcnn:
         url: https://github.com/keras-team/keras.git
         base: keras
-        #hash: 
+        hash: 1a3ee8441933fc007be6b2beb47af67998d50737
 launch:
     path: keras/examples
     command:

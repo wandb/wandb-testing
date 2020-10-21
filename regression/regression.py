@@ -207,6 +207,7 @@ class Test(object):
         #source = list(self.conf.get("sources").get("git")[0].values())[0]
         giturl = gitfirst.get("url")
         base = gitfirst.get("base")
+        githash = gitfirst.get("hash")
         branch = gitfirst.get("branch") or "master"
         #print('got', giturl, base)
         if not os.path.isdir(base):
@@ -214,6 +215,10 @@ class Test(object):
             if os.path.isdir(tmpdir):
                 os.remove(tmpdir)
             subprocess.check_output(["git", "clone", "-b", branch, giturl, tmpdir])
+            if githash:
+                os.chdir(tmpdir)
+                subprocess.check_output(["git", "checkout", githash])
+                os.chdir("..")
             os.rename(tmpdir, base)
         # get pip
         #subprocess.check_call(['pip', 'install', '--upgrade', 'git+git://github.com/wandb/client.git@feature/tensorflow2#egg=wandb'])
