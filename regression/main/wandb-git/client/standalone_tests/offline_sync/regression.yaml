@@ -1,0 +1,20 @@
+version: 0.0
+name: wandb-standalone-offline-sync
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+        branch: test/grpc-sync
+launch:
+    path: client/standalone_tests
+    command:
+      - bash
+      - offline_sync_test.sh
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+check:
+    command:
+        - python
+        - check.py
