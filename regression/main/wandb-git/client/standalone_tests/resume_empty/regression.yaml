@@ -1,10 +1,9 @@
 version: 0.0
-name: wandb-standalone-grpc-server
+name: wandb-standalone-resume-empty
 sources:
     - wandb-client:
         url: git@github.com:wandb/client.git
         base: client
-        branch: fix/resume-empty
 launch:
     path: client/standalone_tests
     command:
