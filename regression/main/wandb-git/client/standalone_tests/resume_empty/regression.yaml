@@ -1,0 +1,30 @@
+version: 0.0
+name: wandb-standalone-grpc-server
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+        branch: fix/resume-empty
+launch:
+    path: client/standalone_tests
+    command:
+      - once:
+        - python
+        - resume-empty.py
+      - twice:
+        - python
+        - resume-empty.py
+      - thirdtime:
+        - python
+        - resume-empty.py
+environment:
+    variables:
+        WANDB_RESUME: allow
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+check:
+    command:
+        - python
+        - check.py
