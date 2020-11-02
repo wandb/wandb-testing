@@ -247,7 +247,7 @@ class Test(object):
                     sys.exit(1)
                 pyver = v
         if not pyver:
-            pyver = "3.6.7"
+            pyver = "3.6.8"
         pyenv = "v" + pyver.replace('.', '')
         subprocess.check_output(["pyenv", "install", "-s", pyver])
         subprocess.check_output(["pyenv", "uninstall", "-f", pyver + "/envs/" + pyenv])

@@ -11,7 +11,7 @@ components:
             - pip>=19.3.1
             - future
     py36:
-        python: 3.6.4
+        python: 3.6.8
         tags:
             - py3
         pip:
@@ -39,6 +39,12 @@ components:
             - torchvision
         tags:
             - pt
+    pt1.4:
+        pip:
+            - torch==1.4.0+cu100 torchvision==0.5.0+cu100 -f https://download.pytorch.org/whl/torch_stable.html
+        tags:
+            - pt
+            - pto
     pt0.4.1:
         pip:
             - torchvision==0.2.1
@@ -156,7 +162,7 @@ components:
             - fa1
     fastai2:
         pip:
-            - fastai>=2.0.0
+            - fastai>=2.0.0,<2.1.0
         tags:
             - fa
             - fa2
@@ -174,11 +180,12 @@ groups:
     python3s:
         - py36
     torches:
-        - pt
+        - pt1.4
         - ptn
         - pt0.4.1
     torches1plus:
         - pt
+        - pt1.4
         - ptn
     tensorflows:
         - tf2
