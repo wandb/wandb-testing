@@ -14,17 +14,14 @@ launch:
         - bert-base-uncased
         - --task_name
         - MRPC
-        - --data_dir
-        - glue_data/MRPC
         - --do_train
         - --do_eval
-        - --evaluate_during_training
         - --max_seq_length
-        - 256
+        - 128
         - --per_gpu_train_batch_size
         - 32
         - --learning_rate
-        - 2e-4
+        - 2e-5
         - --max_steps
         - 1
         - --output_dir
@@ -39,9 +36,8 @@ launch:
           - utils/download_glue_data.py
 environment:
     pip:
-        - transformers==3.0.2
-        - tensorflow
-        - sklearn
+        - transformers
+        - datasets
     variables:
         WANDB_PROJECT: huggingface-demo
         GLUE_DIR: glue_data
