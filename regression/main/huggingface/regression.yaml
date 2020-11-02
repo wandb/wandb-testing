@@ -36,8 +36,9 @@ launch:
           - utils/download_glue_data.py
 environment:
     pip:
-        - transformers
+        - git+https://github.com/huggingface/transformers.git
         - datasets
+        - sklearn
     variables:
         WANDB_PROJECT: huggingface-demo
         GLUE_DIR: glue_data
