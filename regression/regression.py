@@ -300,7 +300,7 @@ class Test(object):
         # undo environment
         for evk, evv in six.iteritems(self._env_capture):
             os.environ[evk] = evv
-        for evk in os.environ.keys():
+        for evk in list(os.environ.keys()):
             if evk not in self._env_capture:
                 del os.environ[evk]
 
