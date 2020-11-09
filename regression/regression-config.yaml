@@ -174,8 +174,7 @@ components:
             - fa2
     fastai2git:
         pip:
-            - git+git://github.com/borisdayma/fastai.git@fix-wandb
-            # - git+git://github.com/fastai/fastai.git
+            - git+git://github.com/fastai/fastai.git
         tags:
             - fa
             - fa2
