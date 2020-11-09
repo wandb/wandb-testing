@@ -16,6 +16,12 @@ components:
             - py3
         pip:
             - pip>=19.3.1
+    py38:
+        python: 3.8.2
+        tags:
+            - py3.8
+        pip:
+            - pip>=19.3.1
     wandb-run:
         options:
             - wandb-run
@@ -162,7 +168,14 @@ components:
             - fa1
     fastai2:
         pip:
-            - fastai>=2.0.0,<2.1.0
+            - fastai>=2.0.0
+        tags:
+            - fa
+            - fa2
+    fastai2git:
+        pip:
+            - git+git://github.com/borisdayma/fastai.git@fix-wandb
+            # - git+git://github.com/fastai/fastai.git
         tags:
             - fa
             - fa2
@@ -179,6 +192,8 @@ groups:
         - py36
     python3s:
         - py36
+    python3ns:
+        - py38
     torches:
         - pt1.4
         - ptn
