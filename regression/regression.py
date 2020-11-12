@@ -214,7 +214,10 @@ class Test(object):
             tmpdir = "tempgit.%s" % getid()
             if os.path.isdir(tmpdir):
                 os.remove(tmpdir)
-            giturl = 'https://www.github.com/' + giturl.split('@github.com:')[1]
+            try:
+                giturl = 'https://www.github.com/' + giturl.split('@github.com:')[1]
+            except:
+                print("Error parsing: " + giturl)
             subprocess.check_output(["git", "clone", "-b", branch, giturl, tmpdir])
             if githash:
                 os.chdir(tmpdir)
