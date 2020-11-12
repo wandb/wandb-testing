@@ -10,4 +10,4 @@ fi
 # clean up temporary dir
 rm -rf tmp-cli/
 export WANDB_API_KEY=$WANDB_API_KEY
-./regression.py --spec :~base:~broken $* main/
+python3.6 regression.py --spec :~base:~broken $* main/
