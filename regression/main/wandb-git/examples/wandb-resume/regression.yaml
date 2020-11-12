@@ -2,8 +2,9 @@ version: 0.0
 name: wandb-examples-resume-auto
 sources:
     - wandb-examples:
-        url: git@github.com:wandb/examples.git#fr_noop
+        url: git@github.com:wandb/examples.git
         base: examples
+        branch: fr_noop
         #hash: 
 launch:
     path: examples/examples/wandb-resume/
