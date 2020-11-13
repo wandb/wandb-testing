@@ -299,13 +299,15 @@ class Test(object):
         # undo environment
         for evk, evv in six.iteritems(self._env_capture):
             os.environ[evk] = evv
-        for evk in os.environ.keys():
+        for evk in list(os.environ.keys()):
             if evk not in self._env_capture:
                 del os.environ[evk]
 
     def check(self):
         c = self.conf.get("check")
         if not c:
+            return
+        if os.environ.get("WANDB_MODE") == "disabled":
             return
         cwd = os.getcwd()
         os.chdir(self.dirname)
