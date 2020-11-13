@@ -162,8 +162,7 @@ components:
             - fa1
     fastai2:
         pip:
-            - fastai>=2.0.0,<2.1.0
-            - git+https://github.com/fastai/fastcore.git
+            - fastai>=2.0.0
         tags:
             - fa
             - fa2
