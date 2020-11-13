@@ -311,6 +311,8 @@ class Test(object):
         c = self.conf.get("check")
         if not c:
             return
+        if os.environ.get("WANDB_MODE") == "disabled":
+            return
         cwd = os.getcwd()
         os.chdir(self.dirname)
         l = c.get("command")
