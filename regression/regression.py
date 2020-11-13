@@ -214,10 +214,6 @@ class Test(object):
             tmpdir = "tempgit.%s" % getid()
             if os.path.isdir(tmpdir):
                 os.remove(tmpdir)
-            try:
-                giturl = 'https://www.github.com/' + giturl.split('@github.com:')[1]
-            except:
-                print("Error parsing: " + giturl)
             subprocess.check_output(["git", "clone", "-b", branch, giturl, tmpdir])
             if githash:
                 os.chdir(tmpdir)
@@ -661,7 +657,7 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
 
 def get_branch_info(branch, repo):
     #subprocess.check_output(["git", "clone", "--single-branch", "--branch", branch, "-n", "git@github.com:wandb/client.git", "tmp-cli"])
-    subprocess.check_output(["git", "clone", "--single-branch", "--branch", branch, "https://www.github.com/" + repo, "tmp-cli"])
+    subprocess.check_output(["git", "clone", "--single-branch", "--branch", branch, "git@github.com:" + repo, "tmp-cli"])
     os.chdir("tmp-cli")
     o = subprocess.check_output(["git", "rev-parse", branch])
     o = o.strip()
