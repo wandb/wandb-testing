@@ -1,10 +1,8 @@
 version: 0.0
-name: wandb-standalone-artifacts
+name: wandb-standalone-dsviz
 sources:
     - wandb-client:
         url: git@github.com:wandb/client.git
-        # This branch just has the latest standalone tests - can be removed once it is merged to use master
-        branch: tim/artifacts/integration_test_prep
         base: client
 launch:
     path: client/standalone_tests
