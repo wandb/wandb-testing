@@ -1,0 +1,21 @@
+version: 0.0
+name: wandb-standalone-artifact-references
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+launch:
+    path: client/standalone_tests
+    command:
+        - python
+        - artifact_object_reference_test.py
+components:
+    extra:
+        pip:
+            - numpy
+            - Pillow
+variants:
+    - init:
+        - extra
+        - wandb-cli
+        - python3s

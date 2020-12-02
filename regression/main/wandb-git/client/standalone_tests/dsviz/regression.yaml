@@ -1,0 +1,21 @@
+version: 0.0
+name: wandb-standalone-dsviz
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+launch:
+    path: client/standalone_tests
+    command:
+        - python
+        - dsviz_demo.py
+components:
+    extra:
+        pip:
+            - numpy
+            - Pillow
+variants:
+    - init:
+        - extra
+        - wandb-cli
+        - python3s
