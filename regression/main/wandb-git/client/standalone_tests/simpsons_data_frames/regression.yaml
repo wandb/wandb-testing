@@ -16,6 +16,7 @@ components:
             - pandas<0.25.0
             - llvmlite==0.31.0  # 0.32.0 drops support for py2.7, llvmlite is needed by fastparquet
             - fastparquet<0.4.0  # 0.4.0 breaks wandb 0.8.26
+            - numba<0.52.0  # 0.52.0 breaks older fastparquet
             - pillow
 variants:
     - init:
