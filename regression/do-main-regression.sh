@@ -1,3 +1,4 @@
+#!/bin/bash
 ulimit -n 4096
 # get WANDB API KEY for ray tests (for now)
 if [ "$WANDB_API_KEY" == "" ]; then
@@ -10,4 +11,5 @@ fi
 # clean up temporary dir
 rm -rf tmp-cli/
 export WANDB_API_KEY=$WANDB_API_KEY
-./regression.py --spec :~base:~broken $* main/
+DIRS=${*:-"main/"}
+./regression.py --spec :~base:~broken $DIRS
