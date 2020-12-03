@@ -3,14 +3,6 @@ name: wandb-standalone-artifacts
 sources:
     - wandb-client:
         url: git@github.com:wandb/client.git
-        # This branch just has the latest standalone tests - can be removed once it is merged to use master
-        # two branches use this, so adding them both here
-        
-        # validated fails on master, fixed on branch
-        # branch: tim/CLI-534/crash_on_artifact_type_change
-        
-        # validated fails on master, fixed on branch
-        branch: tim/WB-3918/artifact_lineage_api
         base: client
 launch:
     path: client/standalone_tests
