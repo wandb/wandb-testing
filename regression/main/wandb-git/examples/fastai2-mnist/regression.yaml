@@ -13,7 +13,7 @@ variants:
     - init:
         - python3s
         - wandb-cli
-        - fastai2git
+        - fastai2s
 check:
     command:
         - python

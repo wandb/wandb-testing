@@ -213,3 +213,6 @@ groups:
         - tf2
     tfns:
         - tf2n
+    fastai2s:
+        - fastai2
+        - fastai2git
