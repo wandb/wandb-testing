@@ -16,6 +16,6 @@ components:
             - Pillow
 variants:
     - init:
-        - extra
-        - wandb-cli
         - python3s
+        - wandb-cli
+        - extra
