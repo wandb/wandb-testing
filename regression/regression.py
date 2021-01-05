@@ -366,7 +366,15 @@ class Test(object):
         preps = self.conf.get("launch").get("prep", [])
         for prep in preps:
             print("Running:", prep)
-            subprocess.check_output(prep)
+            p = subprocess.Popen(prep, stdin=0, stdout=1, stderr=2)
+            ret = p.wait()
+            self.failed = False
+            if ret != 0:
+                print("INFO: exit code: %d" % ret)
+                record_alltests('%s:%s' % (self.job_type, self.reg_name))
+                record_failed('%s:%s' % (self.job_type, self.reg_name))
+                self.failed = True
+                return
 
         patches = self.conf.get("launch").get("patches", [])
         for patch in patches:
