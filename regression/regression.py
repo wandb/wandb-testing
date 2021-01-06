@@ -785,7 +785,7 @@ def main():
 
     # setup defaults
     if not args.config:
-        dirname = os.path.dirname(sys.argv[0])
+        dirname = os.path.abspath(os.path.dirname(sys.argv[0]))
         conf_pathname = os.path.join(dirname, CONF)
         args.config = conf_pathname
     if not args.name:
