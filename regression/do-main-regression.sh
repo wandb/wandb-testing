@@ -11,5 +11,5 @@ fi
 # clean up temporary dir
 rm -rf tmp-cli/
 export WANDB_API_KEY=$WANDB_API_KEY
-DIRS=${*:-"main/"}
-./regression.py --spec :~base:~broken $DIRS
+EXTRA=${*:-"main/"}
+./regression.py --spec :~base:~broken $EXTRA

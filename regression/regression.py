@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-# ./regression.py --dryrun  . --spec ::~py36,~pt0.4.1
-# ./regression.py --dryrun  . --spec ::py27
-# ./regression.py --dryrun  . --spec ::py27,~pt0.3.1
-# ./regression.py --dryrun  . --spec ::pythons=py27
+# ./regression.py --dryrun --spec ::~py36,~pt0.4.1 main/
+# ./regression.py --dryrun --spec ::py27           main/
+# ./regression.py --dryrun --spec ::py27,~pt0.3.1  main/
+# ./regression.py --dryrun --spec ::pythons=py27   main/
 # ./regression.py --cli_branch feature/data-frame-media --spec ::~broken .
 from __future__ import print_function
 
@@ -30,6 +30,7 @@ import wandb
 
 BASE="~/work/regression"
 CONF="regression-config.yaml"
+REG="regression.yaml"
 
 #p = subprocess.Popen(sys.argv, stdin=0, stdout=1, stderr=2)
 #ret = p.wait()
@@ -44,6 +45,10 @@ def generate_id():
 def getdatestr():
     now = datetime.datetime.now()
     return now.strftime("%Y%m%d")
+
+def gettimestr():
+    now = datetime.datetime.now()
+    return now.strftime("%Y%m%d_%H%M%S")
 
 def reg_subprocess_retry(cmdlist):
     exception = None
@@ -81,6 +86,27 @@ def macro_replace(s):
     # recursively replace macros
     s = macro_replace(s)
     return s
+
+
+def checkout_git(gitlist):
+    # FIXME, process list not just first
+    gitfirst = list(gitlist[0].values()).pop()
+
+    giturl = gitfirst.get("url")
+    base = gitfirst.get("base")
+    githash = gitfirst.get("hash")
+    branch = gitfirst.get("branch") or "master"
+    # print('got', giturl, base)
+    if not os.path.isdir(base):
+        tmpdir = "tempgit.%s" % getid()
+        if os.path.isdir(tmpdir):
+            os.remove(tmpdir)
+        subprocess.check_output(["git", "clone", "-b", branch, giturl, tmpdir])
+        if githash:
+            os.chdir(tmpdir)
+            subprocess.check_output(["git", "checkout", githash])
+            os.chdir("..")
+        os.rename(tmpdir, base)
 
 
 class Test(object):
@@ -191,7 +217,6 @@ class Test(object):
             for p in options:
                 self.options.append(p)
             
-
     def prepare(self):
         #print("Chdir", self.pathname)
         os.chdir(self.pathname)
@@ -200,33 +225,10 @@ class Test(object):
         for g in gitlist:
             sources.update(g)
         self.sources = sources
-        # FIXME, process list not just first
-        gitfirst = list(gitlist[0].values()).pop()
-        #giturl = self.conf.get("sources").get("git")[0]
-        #print("p1", giturl)
-        #source = list(self.conf.get("sources").get("git")[0].values())[0]
-        giturl = gitfirst.get("url")
-        base = gitfirst.get("base")
-        githash = gitfirst.get("hash")
-        branch = gitfirst.get("branch") or "master"
-        #print('got', giturl, base)
-        if not os.path.isdir(base):
-            tmpdir = "tempgit.%s" % getid()
-            if os.path.isdir(tmpdir):
-                os.remove(tmpdir)
-            subprocess.check_output(["git", "clone", "-b", branch, giturl, tmpdir])
-            if githash:
-                os.chdir(tmpdir)
-                subprocess.check_output(["git", "checkout", githash])
-                os.chdir("..")
-            os.rename(tmpdir, base)
-        # get pip
-        #subprocess.check_call(['pip', 'install', '--upgrade', 'git+git://github.com/wandb/client.git@feature/tensorflow2#egg=wandb'])
-        #subprocess.check_call(['pip', 'install', 'tensorflow'])
-        #subprocess.check_call(['pip', 'install', 'tensorflow_gpu==2.0.0-alpha0'])
-        #subprocess.check_call(['pip', 'install', 'tensorflow==2.0.0-alpha0'])
-        # apply patches
-        # add files
+
+        # if not gitlist, run locally
+        if gitlist:
+            checkout_git(gitlist)
 
     def cleanup(self):
         #vs = ["PYENV_VERSION", "PYENV_VIRTUALENV_INIT", "PYENV_VIRTUAL_ENV", "PYENV_SHELL", "VIRTUAL_ENV", "PYENV_ROOT", "PYENV_HOOK_PATH"]
@@ -355,13 +357,13 @@ class Test(object):
             os.environ["WANDB_TAGS"] = tags
         if 'python-path' in self.options:
             os.environ["PYTHONPATH"] = "."
+
         os.chdir(self.pathname)
 
         pth = self.conf.get("launch").get("path")
         timeout = self.conf.get("launch", {}).get("timeout")
         killtime = self.conf.get("launch", {}).get("killtime")
-        #print("Chdir", p)
-        os.chdir(pth)
+        os.chdir(pth or self.dirname)
 
         preps = self.conf.get("launch").get("prep", [])
         for prep in preps:
@@ -537,6 +539,22 @@ def hack_get_glob(conf, commandglob):
     return commands
 
 
+def process_external(ext_list, args, branch, cliver, clihash):
+    # print("DEBUG", ext_list)
+    base = os.path.expanduser(BASE)
+    fullname = "external_" + gettimestr()
+    pathname = "%s/%s" % (base, fullname)
+    if not os.path.isdir(pathname):
+        os.makedirs(pathname)
+
+    start_path = os.path.abspath(os.getcwd())
+    os.chdir(pathname)
+    checkout_git(ext_list)
+    scan_and_run(args, branch, cliver, clihash, tests=["."])
+
+    os.chdir(start_path)
+
+
 def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
     # load base
     f = open(args.config).read()
@@ -551,6 +569,12 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
     for c in ("launch", "components", "groups"):
         for k, v in six.iteritems(base.get(c, {})):
             conf.setdefault(c, {}).setdefault(k, v)
+
+    # if regression points to an external spec
+    ext_list = conf.get("external", [])
+    if ext_list:
+        process_external(ext_list, args, branch, cliver, clihash)
+        return
 
     # git+git://github.com/wandb/client.git@797db669bec29094fd2676ba8e35f7840bedf487#egg=wandb
     if args.cli_release:
@@ -586,6 +610,7 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
         commands += hack_get_glob(conf, commandglob)
         #ggfiles = glob.glob(gg)
         #print("glob: ", commandglob, ggfiles, dirname)
+
     for command in commands:
         cname = None
         cdict = {}
@@ -714,13 +739,39 @@ def summary_print():
         sys.exit(1)
 
 
+def scan_and_run(args, branch, cliver, clihash, tests=None):
+    if args.testid:
+        testid = args.testid
+    else:
+        testid = gettestid(branch, cliver, clihash)
+
+    #wandb.init()
+    tests = tests or args.tests
+    start_path = os.path.abspath(os.getcwd())
+    for fname in tests:
+        if os.path.isdir(fname):
+            for root, dirs, files in os.walk(fname):
+                reg_names = [args.name]
+                if args.name == REG:
+                    reg_names.append("." + REG)
+                for reg_name in reg_names:
+                    if reg_name not in files:
+                        continue
+                    # print("INFO: Run", root, reg_name)
+                    process(os.path.join(root, reg_name), testid, args, branch, cliver, clihash, args.cli_base, args.cli_repo)
+                    os.chdir(start_path)
+        else:
+            process(fname, testid, args, branch, cliver, clihash, args.cli_base, args.cli_repo)
+        os.chdir(start_path)
+
+
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--project", type=str, default=None, help="project")
-    parser.add_argument("--config", type=str, default=CONF, help="config file")
+    parser.add_argument("--config", type=str, default=None, help="config file")
     parser.add_argument("--testid", type=str, default=None, help="test id")
     parser.add_argument("--spec", type=str, default=None, help="spec")
-    parser.add_argument("--name", type=str, default="regression.yaml", help="test name")
+    parser.add_argument("--name", type=str, default=None, help="test name")
     parser.add_argument("--nogpu", default=False, dest="nogpu", help="disable gpu pip packages", action="store_true")
     parser.add_argument("--dryrun", default=False, dest="dryrun", help="dont run stuff", action="store_true")
     parser.add_argument("--cli_release", type=str, default=None, help="release name")
@@ -731,6 +782,14 @@ def main():
     parser.add_argument('tests', metavar='TEST', type=str, nargs='+',
                     help='tests file or directory')
     args = parser.parse_args()
+
+    # setup defaults
+    if not args.config:
+        dirname = os.path.dirname(sys.argv[0])
+        conf_pathname = os.path.join(dirname, CONF)
+        args.config = conf_pathname
+    if not args.name:
+        args.name = REG
 
     cliver = "unknown"
     branch = "unknown"
@@ -756,25 +815,9 @@ def main():
         branch = "master"
         cliver, clihash = get_branch_info(branch, args.cli_repo)
 
-    if args.testid:
-        testid = args.testid
-    else:
-        testid = gettestid(branch, cliver, clihash)
-
-    #wandb.init()
     print("INFO: cli hash = ", clihash)
 
-    start_path = os.path.abspath(os.getcwd())
-    for fname in args.tests:
-        if os.path.isdir(fname):
-            for root, dirs, files in os.walk(fname):
-                if args.name in files:
-                    #print("INFO: Run", root, args.name)
-                    process(os.path.join(root, args.name), testid, args, branch, cliver, clihash, args.cli_base, args.cli_repo)
-                    os.chdir(start_path)
-        else:
-            process(fname, testid, args, branch, cliver, clihash, args.cli_base, args.cli_repo)
-        os.chdir(start_path)
+    scan_and_run(args, branch, cliver, clihash)
 
     summary_print()
 
