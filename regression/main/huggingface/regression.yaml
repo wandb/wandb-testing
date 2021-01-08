@@ -35,6 +35,7 @@ environment:
     pip:
         - git+https://github.com/huggingface/transformers.git
         - datasets
+        - sklearn
     variables:
         WANDB_PROJECT: huggingface-demo
 variants:
