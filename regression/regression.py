@@ -28,10 +28,15 @@ import time
 
 import wandb
 
+def gettimestr():
+    now = datetime.datetime.now()
+    return now.strftime("%Y%m%d_%H%M%S")
+
 BASE="~/work/regression"
 CONF="regression-config.yaml"
 REG="regression.yaml"
-RUNFILE=os.path.join(os.path.abspath("."), "runs.txt")
+WHEN=gettimestr()
+RUNFILE=os.path.join(os.path.abspath("."), "results", "%s-runs.txt" % WHEN)
 
 #p = subprocess.Popen(sys.argv, stdin=0, stdout=1, stderr=2)
 #ret = p.wait()
@@ -46,10 +51,6 @@ def generate_id():
 def getdatestr():
     now = datetime.datetime.now()
     return now.strftime("%Y%m%d")
-
-def gettimestr():
-    now = datetime.datetime.now()
-    return now.strftime("%Y%m%d_%H%M%S")
 
 def reg_subprocess_retry(cmdlist):
     exception = None
@@ -788,6 +789,10 @@ def main():
                     help='tests file or directory')
     args = parser.parse_args()
 
+    try:
+        os.makedirs(os.path.dirname(RUNFILE))
+    except OSError:
+        pass
     try:
         os.unlink(RUNFILE)
     except OSError:
