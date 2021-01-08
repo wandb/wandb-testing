@@ -720,7 +720,7 @@ def record_alltests(s, run=None):
     if not run:
         return
     with open(RUNFILE, "a") as f:
-        print("%s\n" % run, file=f)
+        print("%s" % run, file=f)
 
 def summary_print():
     print("\n------------------\n")
