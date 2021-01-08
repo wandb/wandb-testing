@@ -5,6 +5,8 @@ sources:
     - transformers:
         url: https://github.com/huggingface/transformers.git
         base: transformers
+        hash: bfa4ccf77d65d8899b01417bd9845b2e78bc0ec5
+        # v4.1.1 release
 launch:
     path: transformers
     command:
@@ -33,7 +35,7 @@ launch:
     killtime: 20m
 environment:
     pip:
-        - git+https://github.com/huggingface/transformers.git
+        - transformers==4.1.1
         - datasets
         - sklearn
     variables:
@@ -43,4 +45,7 @@ variants:
         - python3s
         - wandb-cli
         - torches1plus
-
+check:
+    command:
+        - python
+        - check.py
