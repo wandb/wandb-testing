@@ -7,8 +7,20 @@ sources:
 launch:
     path: client/standalone_tests
     command:
-      - bash
-      - offline_sync_test.sh
+        - version:
+            - python
+            - -m
+            - wandb
+            - --version
+        - train:
+            - python
+            - offline_sync_train.py
+        - sync:
+            - python
+            - -m
+            - wandb
+            - sync
+            - --sync-all
 variants:
     - init:
         - python3s
