@@ -31,6 +31,7 @@ import wandb
 BASE="~/work/regression"
 CONF="regression-config.yaml"
 REG="regression.yaml"
+RUNFILE=os.path.join(os.path.abspath("."), "runs.txt")
 
 #p = subprocess.Popen(sys.argv, stdin=0, stdout=1, stderr=2)
 #ret = p.wait()
@@ -448,7 +449,8 @@ class Test(object):
             self.failed = False
             if l_settings.get("ignore"):
                 continue
-            record_alltests('%s:%s' % (self.job_type, self.reg_name))
+            run_path = "%s/%s" % (project, os.environ["WANDB_RUN_ID"])
+            record_alltests('%s:%s' % (self.job_type, self.reg_name), run=run_path)
             if ret != 0:
                 print("INFO: exit code: %d" % ret)
                 record_failed('%s:%s' % (self.job_type, self.reg_name))
@@ -712,10 +714,13 @@ def record_failed(s):
     global failed
     failed.append(s)
 
-def record_alltests(s):
+def record_alltests(s, run=None):
     global alltests
     alltests.append(s)
-
+    if not run:
+        return
+    with open(RUNFILE, "a") as f:
+        print("%s\n" % run, file=f)
 
 def summary_print():
     print("\n------------------\n")
@@ -782,6 +787,11 @@ def main():
     parser.add_argument('tests', metavar='TEST', type=str, nargs='+',
                     help='tests file or directory')
     args = parser.parse_args()
+
+    try:
+        os.unlink(RUNFILE)
+    except OSError:
+        pass
 
     # setup defaults
     if not args.config:
