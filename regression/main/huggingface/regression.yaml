@@ -31,9 +31,6 @@ launch:
         - 1
     timeout: 15m
     killtime: 20m
-    prep:
-        - - python
-          - utils/download_glue_data.py
 environment:
     pip:
         - git+https://github.com/huggingface/transformers.git
@@ -41,8 +38,6 @@ environment:
         - sklearn
     variables:
         WANDB_PROJECT: huggingface-demo
-        GLUE_DIR: glue_data
-        TASK_NAME: MRPC
 variants:
     - init:
         - python3s
