@@ -36,7 +36,7 @@ BASE="~/work/regression"
 CONF="regression-config.yaml"
 REG="regression.yaml"
 WHEN=gettimestr()
-RUNFILE=os.path.join(os.path.abspath("."), "results", "%s-runs.txt" % WHEN)
+RUNFILE=os.path.join(os.path.abspath("."), "results", WHEN, "runs.txt")
 
 #p = subprocess.Popen(sys.argv, stdin=0, stdout=1, stderr=2)
 #ret = p.wait()
@@ -721,7 +721,7 @@ def record_alltests(s, run=None):
     if not run:
         return
     with open(RUNFILE, "a") as f:
-        print("%s" % run, file=f)
+        print("%s %s" % (s, run), file=f)
 
 def summary_print():
     print("\n------------------\n")
