@@ -16,6 +16,7 @@ components:
             - Pillow
             - moviepy
             - imageio
+            - bokeh
 variants:
     - init:
         - python3s
