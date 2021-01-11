@@ -1,1 +1,1 @@
-./regression.py --spec ::~broken $* magic/
+./regression.py --spec ::~broken $* tests/magic-beta/

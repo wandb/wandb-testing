@@ -2,3 +2,5 @@
 bin/minio
 logs/minio.log
 data/*
+__pycache__/
+results
