@@ -375,7 +375,7 @@ class Test(object):
             self.failed = False
             if ret != 0:
                 print("INFO: exit code: %d" % ret)
-                record_alltests('%s:%s' % (self.job_type, self.reg_name))
+                record_alltests('%s:%s' % (self.job_type, self.reg_name), args=self.args)
                 record_failed('%s:%s' % (self.job_type, self.reg_name))
                 self.failed = True
                 return
@@ -451,7 +451,7 @@ class Test(object):
             if l_settings.get("ignore"):
                 continue
             run_path = "%s/%s" % (project, os.environ["WANDB_RUN_ID"])
-            record_alltests('%s:%s' % (self.job_type, self.reg_name), run=run_path)
+            record_alltests('%s:%s' % (self.job_type, self.reg_name), run=run_path, args=self.args)
             if ret != 0:
                 print("INFO: exit code: %d" % ret)
                 record_failed('%s:%s' % (self.job_type, self.reg_name))
@@ -715,11 +715,17 @@ def record_failed(s):
     global failed
     failed.append(s)
 
-def record_alltests(s, run=None):
+def record_alltests(s, run=None, args=None):
     global alltests
     alltests.append(s)
     if not run:
         return
+
+    try:
+        os.makedirs(os.path.dirname(RUNFILE))
+    except OSError:
+        pass
+
     with open(RUNFILE, "a") as f:
         print("%s %s" % (s, run), file=f)
 
@@ -788,15 +794,6 @@ def main():
     parser.add_argument('tests', metavar='TEST', type=str, nargs='+',
                     help='tests file or directory')
     args = parser.parse_args()
-
-    try:
-        os.makedirs(os.path.dirname(RUNFILE))
-    except OSError:
-        pass
-    try:
-        os.unlink(RUNFILE)
-    except OSError:
-        pass
 
     # setup defaults
     if not args.config:
