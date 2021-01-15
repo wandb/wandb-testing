@@ -17,6 +17,7 @@ components:
             - moviepy
             - imageio
             - bokeh
+            - soundfile
 variants:
     - init:
         - python3s
