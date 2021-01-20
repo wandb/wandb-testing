@@ -16,9 +16,15 @@
     ./do_main_regression.sh
 ```
 
+## Linux setup
+```
+apt install ffmpeg
+```
+
 ## Mac setup (not necessary for Linux)
 ```
 brew install coreutils
+brew install ffmpeg
 ```
 
 ## Requirements:
