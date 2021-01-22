@@ -1,0 +1,34 @@
+version: 0.0
+name: tbx-example
+short: tbxex
+sources:
+    - wandb-examples:
+        url: https://github.com/wandb/wandb-examples.git
+        base: wandb-examples
+launch:
+    path: wandb-examples
+    command:
+        - python
+        - tbX/tbX_test.py
+components:
+    tbx:
+      pip:
+        - tensorboardX
+    tb:
+      pip:
+        - tensorboard  
+    extra:
+      pip:
+        - numpy
+        - Pillow
+variants:
+    - init:
+        - python3s
+        - wandb-cli
+        - tbx
+        - tb
+        - extra
+check:
+    command:
+        - python
+        - check.py
