@@ -12,4 +12,4 @@ last_run = api.run("%s/%s" % (project, run_id))
 # Test Checks
 #
 assert last_run.summary_metrics['loss'] >= 0
-assert last_run.summary_metrics['acc'] == 0
+assert last_run.summary_metrics['acc'] >= 0
