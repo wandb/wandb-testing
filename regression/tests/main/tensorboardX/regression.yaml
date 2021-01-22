@@ -4,7 +4,6 @@ short: tbxex
 sources:
     - wandb-examples:
         url: https://github.com/wandb/wandb-examples.git
-        branch: WB3757-tbx-tf1-regression
         base: wandb-examples
 launch:
     path: wandb-examples
@@ -29,3 +28,7 @@ variants:
         - tbx
         - tb
         - extra
+check:
+    command:
+        - python
+        - check.py
