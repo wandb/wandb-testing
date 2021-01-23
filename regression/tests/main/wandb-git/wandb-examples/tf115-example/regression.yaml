@@ -1,15 +1,16 @@
 version: 0.0
 name: tf115-example-randominput
 short: tf115ex-randominput
+name: wandb-wandb-examples-tf115-example
 sources:
     - wandb-examples:
-        url: https://github.com/wandb/wandb-examples.git
+        url: git@github.com:wandb/wandb-examples.git
         base: wandb-examples
 launch:
-    path: wandb-examples
+    path: wandb-examples/tensorflow
     command:
         - python
-        - tensorflow/tf115_wandb.py
+        - tf115_wandb.py
         - num_steps 
         - 100  
 components:
