@@ -1,4 +1,4 @@
 pyyaml
 six
-wandb
+wandb>=0.10.15
 shortuuid

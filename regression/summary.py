@@ -4,7 +4,7 @@ import wandb
 
 from functools import reduce
 
-from proto import wandb_telemetry_pb2 as telemetry
+from wandb.proto import wandb_telemetry_pb2 as telemetry
 
 from typing import NewType, Optional, Dict, Any, Tuple, Generator
 
