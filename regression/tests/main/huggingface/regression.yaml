@@ -35,6 +35,7 @@ launch:
     killtime: 20m
 environment:
     pip:
+        - pip>=21.0
         - transformers==4.1.1
         - datasets
         - sklearn
