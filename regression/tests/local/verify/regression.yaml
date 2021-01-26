@@ -1,0 +1,12 @@
+version: 0.0
+name: local-verify-basic
+launch:
+    command:
+      - python
+      - -m
+      - wandb
+      - verify
+variants:
+    - init:
+        - python3s
+        - wandb-cli
