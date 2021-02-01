@@ -1,5 +1,9 @@
 #!/usr/bin/env python
+
+import os
 import sys
+import argparse
+
 import wandb
 
 from functools import reduce
@@ -126,19 +130,66 @@ def get_all():
     return a
 
 
-def main():
+def summarize(extra):
     t = dict(num=0)
     r = dict()
 
     a = get_all()
     ln = reduce(max, map(len, a))
 
-    fnames = sys.argv[1:]
+    fnames = extra
     for fname in fnames:
         scan(t, r, fname)
 
     for i in a:
         print("%*s: %d" % (ln, i, len(r.get(i, []))))
+
+
+def grabone(fname, spec, run_id):
+    api = wandb.Api()
+    try:
+        run = api.run(run_id)
+    except wandb.errors.error.CommError:
+        run = None
+    if not run:
+        return
+
+    dirname = os.path.dirname(fname)
+    base = os.path.join(dirname, "data")
+    filesdir = os.path.join(base, spec, "files")
+    try:
+        os.makedirs(filesdir)
+    except FileExistsError:
+        pass
+    files = run.files()
+    for f in files:
+        f.download(root=filesdir)
+
+
+def grabstuff(fname):
+    run_ids = open(fname).readlines()
+    run_ids = [f.strip().split() for f in run_ids]
+    for spec, run in run_ids:
+        print("->", spec, run)
+        grabone(fname, spec, run)
+
+
+def grab(extra):
+    fnames = extra
+    for fname in fnames:
+        grabstuff(fname)
+
+def main():
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("--project", type=str, default=None, help="project")
+    parser.add_argument("--summarize", default=False, dest="summarize", help="scan stuff", action="store_true")
+    parser.add_argument("--grab", default=False, dest="grab", help="grab stuff", action="store_true")
+    args, extra = parser.parse_known_args()
+    if args.summarize:
+        summarize(extra)
+    if args.grab:
+        grab(extra)
+
 
 
 if __name__ == "__main__":
