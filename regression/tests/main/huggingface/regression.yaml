@@ -1,3 +1,6 @@
+# if this file is updated, check required updates:
+# * in the demo: https://colab.research.google.com/drive/1Me2goAjjIhdCWtpyGSIHELJCF-jC3m7-?usp=sharing
+# * in the documentation: https://docs.wandb.ai/integrations/huggingface
 version: 0.0
 name: huggingface-transformers
 short: transformers
