@@ -16,21 +16,21 @@ launch:
         - bert-base-uncased
         - --task_name
         - MRPC
+        - --learning_rate
+        - 1e-4
         - --do_train
         - --do_eval
-        - --max_seq_length
-        - 128
-        - --per_gpu_train_batch_size
-        - 32
-        - --learning_rate
-        - 2e-5
         - --max_steps
         - 1
+        - --logging_steps
+        - 1
+        - --evaluation_strategy
+        - steps
         - --output_dir
         - /tmp/MRPC/
         - --overwrite_output_dir
-        - --logging_steps
-        - 1
+        - --run_name
+        - demo
     timeout: 15m
     killtime: 20m
 environment:
@@ -41,6 +41,7 @@ environment:
         - sklearn
     variables:
         WANDB_PROJECT: huggingface-demo
+        WANDB_LOG_MODEL: true
 variants:
     - init:
         - python3s
