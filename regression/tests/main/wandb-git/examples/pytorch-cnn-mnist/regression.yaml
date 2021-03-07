@@ -25,12 +25,12 @@ components:
             - tb-nightly
 variants:
     - watch:
-        - pythons
+        - python3s
         - torches
         - extra
         - wandb-cli
     - full:
-        - pythons
+        - python3s
         - wandb-full
         - ptn
         - tbn
