@@ -1,25 +1,15 @@
-diff --git a/examples/pytorch/pytorch-cnn-mnist/main.py b/examples/pytorch/pytorch-cnn-mnist/main.py
-index bf16956..9010c9d 100644
---- a/examples/pytorch/pytorch-cnn-mnist/main.py
-+++ b/examples/pytorch/pytorch-cnn-mnist/main.py
-@@ -6,6 +6,7 @@ import torch.nn.functional as F
- import torch.optim as optim
- from torchvision import datasets, transforms
- import wandb
-+import tensorboard
+--- a/examples/pytorch/pytorch-cnn-mnist/main.py	2021-03-07 14:39:09.000000000 -0800
++++ b/examples/pytorch/pytorch-cnn-mnist/main.py	2021-03-07 14:39:42.000000000 -0800
+@@ -79,7 +79,7 @@
+     opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+     urllib.request.install_opener(opener)
  
- 
- class Net(nn.Module):
-@@ -71,7 +72,7 @@ def test(args, model, device, test_loader):
- 
- 
- def main():
 -    wandb.init()
-+    wandb.init(tensorboard=True)
++    wandb.init(sync_tensorboard=True)
      # Training settings
      parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
      parser.add_argument('--batch-size', type=int, default=64, metavar='N',
-@@ -117,7 +118,7 @@ def main():
+@@ -125,7 +125,7 @@
      model = Net().to(device)
      optimizer = optim.SGD(model.parameters(), lr=args.lr,
                            momentum=args.momentum)
