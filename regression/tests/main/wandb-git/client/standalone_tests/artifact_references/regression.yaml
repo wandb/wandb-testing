@@ -4,6 +4,7 @@ sources:
     - wandb-client:
         url: git@github.com:wandb/client.git
         base: client
+        hash: f26f732702c5ee4c16d686f7686a5e4d3605ae44
 launch:
     path: client/standalone_tests
     command:
