@@ -18,6 +18,8 @@ components:
             - imageio
             - bokeh
             - soundfile
+            - boto3
+            - google-cloud-storage
 variants:
     - init:
         - python3s
