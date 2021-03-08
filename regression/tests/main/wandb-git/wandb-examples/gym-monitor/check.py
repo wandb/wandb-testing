@@ -30,7 +30,7 @@ assert video.get("size") > 0
 import time
 found = False
 start = time.time()
-while time.time() < start + 60:
+while time.time() < start + 60 * 5:
     file_names = set([f.name for f in last_run.files()])
     if video.get("path") in file_names:
         found = True
