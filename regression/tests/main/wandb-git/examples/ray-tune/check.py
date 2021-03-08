@@ -19,4 +19,5 @@ assert len(runs) == 6
 uniq = {(r.config["lr"], r.config["momentum"]) for r in runs}
 assert len(uniq) == 6
 for r in runs:
+    print("check run:", r.url, r.summary_metrics)
     assert(r.summary_metrics["mean_accuracy"] > 0)
