@@ -21,5 +21,19 @@ assert last_run.project == project
 video = last_run.summary_metrics["videos"]
 assert video.get("_type") == "video-file"
 assert video.get("size") > 0
-file_names = set([f.name for f in last_run.files()])
-assert video.get("path") in file_names
+
+# files are not stable in gorilla for some time
+# so lets poll files for a minute
+# file_names = set([f.name for f in last_run.files()])
+# assert video.get("path") in file_names
+
+import time
+found = False
+start = time.time()
+while time.time() < start + 60:
+    file_names = set([f.name for f in last_run.files()])
+    if video.get("path") in file_names:
+        found = True
+        break
+    time.sleep(5)
+assert found
