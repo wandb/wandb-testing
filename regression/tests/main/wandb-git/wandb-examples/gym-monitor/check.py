@@ -29,10 +29,16 @@ assert video.get("size") > 0
 
 import time
 found = False
-start = time.time()
-while time.time() < start + 60 * 5:
+start_time = time.time()
+while time.time() < start_time + 60 * 5:
+    video = last_run.summary_metrics["videos"]
+    assert video.get("_type") == "video-file"
+    assert video.get("size") > 0
+    video_file = video.get("path")
+
     file_names = set([f.name for f in last_run.files()])
-    if video.get("path") in file_names:
+    print("Looking for:", video_file, time.time() - start_time, file_names)
+    if video_file in file_names:
         found = True
         break
     time.sleep(5)
