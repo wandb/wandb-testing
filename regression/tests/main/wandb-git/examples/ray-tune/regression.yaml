@@ -11,6 +11,7 @@ launch:
         - pytorch-test.py
         - -p
         - regression-raytune-${WANDB_RUN_GROUP}-${WANDB_NAME}
+    norunid: True
 components:
     raytune:
         pip:
