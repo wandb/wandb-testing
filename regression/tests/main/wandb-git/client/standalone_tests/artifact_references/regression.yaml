@@ -9,6 +9,9 @@ launch:
     command:
         - python
         - artifact_object_reference_test.py
+    timeout: 18m
+    killtime: 25m
+    norunid: True
 components:
     extra:
         pip:

@@ -325,6 +325,7 @@ class Test(object):
         os.chdir(cwd)
 
     def launch(self):
+        run_id = "norunid"
         l = self.conf.get("launch").get("command")
         # if naked run
         description = "%s\nRelease = %s\nBranch = %s\nHash = %s\n\nBatch = %s\nTest = %s\n" % (self.name, self.cliver, self.branch, self.clihash, self.run_group, self.job_type)
@@ -365,6 +366,7 @@ class Test(object):
         pth = self.conf.get("launch").get("path")
         timeout = self.conf.get("launch", {}).get("timeout")
         killtime = self.conf.get("launch", {}).get("killtime")
+        norunid = self.conf.get("launch", {}).get("norunid")
         os.chdir(pth or self.dirname)
 
         preps = self.conf.get("launch").get("prep", [])
@@ -434,7 +436,9 @@ class Test(object):
             # os.environ["WANDB_DESCRIPTION"] = description
             os.environ["WANDB_NAME"] = name
             os.environ["WANDB_NOTES"] = notes
-            os.environ["WANDB_RUN_ID"] = "r-" + generated_id
+            if not norunid:
+                run_id = "r-" + generated_id
+                os.environ["WANDB_RUN_ID"] = run_id
             #subprocess.check_output(r)
 
             # expand macros if needed
@@ -450,7 +454,7 @@ class Test(object):
             self.failed = False
             if l_settings.get("ignore"):
                 continue
-            run_path = "%s/%s" % (project, os.environ["WANDB_RUN_ID"])
+            run_path = "%s/%s" % (project, run_id)
             record_alltests('%s:%s' % (self.job_type, self.reg_name), run=run_path, args=self.args)
             if ret != 0:
                 print("INFO: exit code: %d" % ret)
