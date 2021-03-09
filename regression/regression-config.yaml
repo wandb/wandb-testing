@@ -210,6 +210,9 @@ groups:
         - pt
         - pt1.4
         - ptn
+    torches-new:
+        - pt
+        - ptn
     tensorflows:
         - tf2
         - tf2n

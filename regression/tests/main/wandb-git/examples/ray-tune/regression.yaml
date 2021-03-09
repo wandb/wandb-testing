@@ -19,7 +19,7 @@ variants:
     - init:
         - python3s
         - wandb-cli
-        - torches1plus
+        - torches-new
         - raytune
 check:
     command:
