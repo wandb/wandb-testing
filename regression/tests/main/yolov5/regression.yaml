@@ -1,7 +1,7 @@
 version: 0.0
 name: yolov5
 sources:
-    - transformers:
+    - yolov5:
         url: https://github.com/ultralytics/yolov5.git
         base: yolov5
 launch:

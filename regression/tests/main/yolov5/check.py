@@ -9,4 +9,5 @@ last_run = api.run("%s/%s" % (project, run_id))
 # Test Checks
 #
 assert last_run.summary_metrics["metrics/precision"] > 0
+assert last_run.summary_metrics["metrics/recall"] > 0
 assert last_run.summary_metrics["train/box_loss"] > 0
