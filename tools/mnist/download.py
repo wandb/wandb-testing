@@ -15,3 +15,4 @@ if download_dir:
 
 os.system("wget -O MNIST.tar.gz https://activeeon-public.s3.eu-west-2.amazonaws.com/datasets/MNIST.new.tar.gz")
 os.system("tar -zxvf MNIST.tar.gz")
+print("Files downloaded to:", os.path.abspath(os.getcwd()))
