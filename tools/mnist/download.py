@@ -7,7 +7,7 @@ import sys
 
 download_dir = None
 args = sys.argv[1:]
-if len(args) > 1:
+if len(args) >= 1:
     download_dir = args[0]
 
 if download_dir:
