@@ -5,6 +5,15 @@ sources:
         url: git@github.com:wandb/examples.git
         base: examples
         #hash: 
+    - wandb-testing:
+        url: git@github.com:wandb/wandb-testing.git
+        base: wandb-testing
+prepare:
+    - download:
+        path: wandb-testing/tools/mnist
+        command:
+            - ./download.py
+            - ../../../examples/examples/pytorch/data
 launch:
     path: examples/examples/pytorch/pytorch-cnn-mnist/
     command:

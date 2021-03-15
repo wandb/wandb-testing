@@ -6,6 +6,15 @@ sources:
         base: examples
         #branch: pytorch-ignite
         #hash: 
+    - wandb-testing:
+        url: git@github.com:wandb/wandb-testing.git
+        base: wandb-testing
+prepare:
+    - download:
+        path: wandb-testing/tools/mnist
+        command:
+            - ./download.py
+            - ../../../examples/examples/pytorch-ignite
 launch:
     path: examples/examples/pytorch-ignite
     command:
