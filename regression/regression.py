@@ -297,6 +297,7 @@ class Test(object):
             os.chdir(p)
             cmd = l.get("command")
             cmd = ["pyenv", "exec"] + cmd
+            print("DIR:", p)
             print("INFO: Running", ' '.join(cmd))
             subprocess.check_output(cmd)
 
