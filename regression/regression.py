@@ -90,9 +90,7 @@ def macro_replace(s):
     return s
 
 
-def checkout_git(gitlist):
-    # FIXME, process list not just first
-    gitfirst = list(gitlist[0].values()).pop()
+def checkout_git_one(gitfirst):
 
     giturl = gitfirst.get("url")
     base = gitfirst.get("base")
@@ -109,6 +107,13 @@ def checkout_git(gitlist):
             subprocess.check_output(["git", "checkout", githash])
             os.chdir("..")
         os.rename(tmpdir, base)
+
+
+def checkout_git(gitlist):
+    for git_item in gitlist:
+        git_one = list(git_item.values()).pop()
+        print("Git checkout:", git_one)
+        checkout_git_one(git_one)
 
 
 class Test(object):
