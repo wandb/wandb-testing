@@ -299,7 +299,10 @@ class Test(object):
             cmd = ["pyenv", "exec"] + cmd
             print("DIR:", p)
             print("INFO: Running", ' '.join(cmd))
-            subprocess.check_output(cmd)
+            #subprocess.check_output(cmd)
+            p = subprocess.Popen(cmd, stdin=0, stdout=1, stderr=2)
+            ret = p.wait()
+            assert ret == 0
 
 
     def env_save(self):
