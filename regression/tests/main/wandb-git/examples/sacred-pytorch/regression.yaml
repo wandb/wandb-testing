@@ -11,6 +11,7 @@ prepare:
     - download:
         path: wandb-testing/tools/mnist
         command:
+            - python
             - ./download.py
             - ../../../examples/data/
 launch:

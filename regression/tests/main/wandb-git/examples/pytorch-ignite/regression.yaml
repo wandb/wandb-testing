@@ -13,6 +13,7 @@ prepare:
     - download:
         path: wandb-testing/tools/mnist
         command:
+            - python
             - ./download.py
             - ../../../examples/examples/pytorch-ignite
 launch:
