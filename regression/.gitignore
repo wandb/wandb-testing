@@ -1,5 +1,6 @@
 .python-version
 bin/minio
+bin/mc
 logs/minio.log
 data/*
 __pycache__/
