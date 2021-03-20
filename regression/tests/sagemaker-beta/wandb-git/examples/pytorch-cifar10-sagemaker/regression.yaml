@@ -1,0 +1,40 @@
+version: 0.0
+name: wandb-examples-pt-cifar10-sagemaker
+sources:
+    - tensorflow-examples:
+        url: git@github.com:wandb/examples.git
+        base: examples
+        #hash: 
+    - wandb-testing:
+        url: git@github.com:wandb/wandb-testing.git
+        base: wandb-testing
+prepare:
+    - download:
+        path: wandb-testing/tools/mnist
+        command:
+            - python
+            - ./download.py
+            - ../../../examples/examples/pytorch/data
+launch:
+    path: examples/examples/pytorch/pytorch-cifar10-sagemaker/
+    command:
+        - python
+        - train.py
+        - --train-epochs
+        - 5
+        - --max-parallel-jobs
+        - 2
+        - --max-jobs
+        - 2
+    timeout: 60m
+    killtime: 75m
+components:
+    extra:
+        pip:
+            - sagemaker
+variants:
+    - full:
+        - python3s
+        - ptn
+        - extra
+        - wandb-cli
