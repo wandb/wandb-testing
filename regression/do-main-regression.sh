@@ -11,5 +11,6 @@ fi
 # clean up temporary dir
 rm -rf tmp-cli/
 export WANDB_API_KEY=$WANDB_API_KEY
+
 EXTRA=${*:-"tests/main/"}
-./regression.py --spec :~base:~broken $EXTRA
+time ./regression.py --spec :~base:~broken $EXTRA

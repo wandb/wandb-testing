@@ -15,4 +15,6 @@ sleep 1
 sleep 1
 ./s3tools/setup-s3.sh
 sleep 1
-./regression.py --spec ::~broken $*
+
+EXTRA=${*:-"tests/s3-beta/"}
+time ./regression.py --spec ::~broken $EXTRA
