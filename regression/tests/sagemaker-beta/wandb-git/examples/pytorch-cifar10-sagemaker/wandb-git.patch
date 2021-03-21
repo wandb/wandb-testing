@@ -1,0 +1,7 @@
+diff --git a/examples/pytorch/pytorch-cifar10-sagemaker/source/requirements.txt b/examples/pytorch/pytorch-cifar10-sagemaker/source/requirements.txt
+index fff9600..2adf0d4 100644
+--- a/examples/pytorch/pytorch-cifar10-sagemaker/source/requirements.txt
++++ b/examples/pytorch/pytorch-cifar10-sagemaker/source/requirements.txt
+@@ -1 +1 @@
+-wandb
++-e client/

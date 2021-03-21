@@ -15,6 +15,12 @@ prepare:
             - python
             - ./download.py
             - ../../../examples/examples/pytorch/data
+    - checkout:
+        path: wandb-testing/tools/checkout
+        command:
+            - python
+            - ./checkout.py
+            - ../../../examples/examples/pytorch/pytorch-cifar10-sagemaker/source/
 launch:
     path: examples/examples/pytorch/pytorch-cifar10-sagemaker/
     command:
@@ -32,9 +38,14 @@ components:
     extra:
         pip:
             - sagemaker
+    wandb-git:
+        patches:
+            tensorflow-examples:
+                - wandb-git.patch
 variants:
     - full:
         - python3s
         - ptn
         - extra
+        - wandb-git
         - wandb-cli

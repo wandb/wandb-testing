@@ -841,6 +841,9 @@ def main():
         cliver, clihash = get_branch_info(branch, args.cli_repo)
 
     print("INFO: cli hash = ", clihash)
+    os.environ["WANDB_REGRESSION_CLIENT_GIT"] = "git@github.com:wandb/client.git"
+    if clihash != "unknown":
+        os.environ["WANDB_REGRESSION_CLIENT_GITHASH"] = clihash
 
     scan_and_run(args, branch, cliver, clihash)
 
