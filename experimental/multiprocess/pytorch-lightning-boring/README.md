@@ -7,14 +7,17 @@ pip install -r requirements.txt
 
 ./train.py --acc=ddp_cpu --num_processes=2
 # problem with wandb: hangs at end, two run headers
+# works in 0.9.7
 # ./train.py --acc=ddp_cpu --num_processes=2 --use_wandb
 
 ./train.py --acc=ddp_spawn --gpus=2
 # problem with wandb: hangs at end, two run headers
+# works in 0.9.7
 # ./train.py --acc=ddp_spawn --gpus=2 --use_wandb
 
 ./train.py --acc=ddp --gpus=2
 # problem with wandb: file not found (chdir somewhere in logger?)
+# busted the same way in 0.9.7
 # ./train.py --acc=ddp --gpus=2 --use_wandb
 
 ./train.py --acc=dp --gpus=2
