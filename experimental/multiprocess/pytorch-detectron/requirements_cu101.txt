@@ -1,0 +1,2 @@
+--find-links https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.7/index.html
+detectron2
