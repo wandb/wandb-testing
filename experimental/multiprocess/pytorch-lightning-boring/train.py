@@ -63,7 +63,7 @@ def main():
     parser.add_argument("--accelerator", choices=acc_choices)
     parser.add_argument("--max_epochs", default=3)
     parser.add_argument("--gpus", type=int)
-    parser.add_argument("--num_processes", type=int)
+    parser.add_argument("--num_processes", type=int, default=1)
     parser.add_argument("--num_nodes", type=int, default=1)
     parser.add_argument("--num_workers", type=int, default=0)
     args = parser.parse_args()
