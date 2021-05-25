@@ -121,8 +121,14 @@ components:
             - tf1
     tf2:
         pip:
-            - tensorflow_gpu
+            - tensorflow_gpu<2.5.0
         short: tf2
+        tags:
+            - tf
+            - tf2
+    tf25p:
+        pip:
+            - tensorflow_gpu>=2.5.0
         tags:
             - tf
             - tf2
@@ -166,6 +172,9 @@ components:
             - tf
             - tf1
             - tf1o
+    pil:
+        pip:
+            - pillow
     fastai1:
         pip:
             - fastai<2.0.0
@@ -178,6 +187,12 @@ components:
         tags:
             - fa
             - fa2
+    tb:
+        pip:
+            - tensorboard<2.5.0
+    tb24p:
+        pip:
+            - tensorboard>=2.5.0
     fastai2git:
         pip:
             - git+git://github.com/fastai/fastai.git

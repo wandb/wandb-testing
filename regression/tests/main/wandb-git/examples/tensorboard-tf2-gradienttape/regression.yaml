@@ -10,16 +10,12 @@ launch:
     command:
         - python
         - train.py
-components:
-    tb:
-        pip:
-            - tensorboard
-            - pillow
 variants:
     - init:
         - python3s
         - wandb-cli
         - tf2
+        - pil
         - tb
 check:
     command:

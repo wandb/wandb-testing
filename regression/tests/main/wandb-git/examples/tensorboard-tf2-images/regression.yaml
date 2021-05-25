@@ -15,9 +15,6 @@ environment:
         - numpy
         - packaging
 components:
-    tb:
-        pip:
-            - tensorboard
     sklearn:
         pip:
             - sklearn
