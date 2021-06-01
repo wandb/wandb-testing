@@ -1,0 +1,18 @@
+version: 0.0                                       # <- Version of this file format
+name: wandb-standalone-ipython-exit      # <- What the test will be called
+sources:
+    - wandb-client:
+        url: git@github.com:wandb/client.git
+        base: client
+launch:
+     path: client/standalone_tests
+     command:
+        - ipython
+        - ipython_exit.py
+components:
+    ipython:
+        pip:
+          - ipython
+variants:
+    - init:                                        # <- Identifier of the test to run (appended to test name)
+        - wandb-cli                                # <- Defined in regression-config.yaml, install wandb library
