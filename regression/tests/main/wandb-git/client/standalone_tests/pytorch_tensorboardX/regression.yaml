@@ -22,7 +22,7 @@ components:
             - tensorboard
 variants:
     - init:
-        - pythons
+        - python3s
         - wandb-cli
         - torches1plus
         - tbx
