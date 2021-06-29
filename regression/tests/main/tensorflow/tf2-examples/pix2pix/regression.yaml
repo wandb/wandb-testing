@@ -27,9 +27,9 @@ variants:
     - base:
         - python3s
         - wandb-run
-        - tf2n
+        - tf2
     - init:
         - python3s
-        - tf2n
+        - tf2
         - wandb-cli
         - wandb-init
