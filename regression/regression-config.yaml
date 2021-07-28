@@ -208,7 +208,6 @@ components:
     #        - git+git://github.com/wandb/client.git@797db669bec29094fd2676ba8e35f7840bedf487#egg=wandb
 groups:
     pythons:
-        - py27
         - py36
     python3s:
         - py36
