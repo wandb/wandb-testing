@@ -212,7 +212,6 @@ groups:
     python3s:
         - py36
     python3os:
-        - py35
         - py36
     python3ns:
         - py38
