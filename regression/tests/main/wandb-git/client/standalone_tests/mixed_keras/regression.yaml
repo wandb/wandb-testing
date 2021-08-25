@@ -18,6 +18,5 @@ variants:
         - wandb-cli
     - nightly:
         - python3s
-        - keras
         - tfns
         - wandb-cli

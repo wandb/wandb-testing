@@ -24,6 +24,5 @@ variants:
     - nightly:
         - python3s
         - wandb-cli
-        - keras
         - tfns
         - tb
