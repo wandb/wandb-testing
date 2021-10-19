@@ -596,9 +596,11 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
     if args.cli_release:
         conf["components"]["wandb-cli"] = {"pip": ["%s==%s" % (clibase, cliver)]}
         conf["components"]["wandb-grpc"] = {"pip": ["%s[grpc]==%s" % (clibase, cliver)]}
+        conf["components"]["wandb-service"] = {"pip": ["%s[service]==%s" % (clibase, cliver)]}
     else:
         conf["components"]["wandb-cli"] = {"pip": ["git+git://github.com/%s@%s#egg=%s" % (clirepo, clihash, clibase)]}
         conf["components"]["wandb-grpc"] = {"pip": ["git+git://github.com/%s@%s#egg=%s[grpc]" % (clirepo, clihash, clibase)]}
+        conf["components"]["wandb-service"] = {"pip": ["git+git://github.com/%s@%s#egg=%s[service]" % (clirepo, clihash, clibase)]}
 
     dirname = os.path.dirname(os.path.abspath(fname))
     #print("dirname", dirname)

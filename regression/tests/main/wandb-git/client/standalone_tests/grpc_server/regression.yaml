@@ -12,7 +12,7 @@ launch:
 variants:
     - init:
         - python3s
-        - wandb-grpc
+        - wandb-service
 check:
     command:
         - python
