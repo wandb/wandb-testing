@@ -22,6 +22,12 @@ components:
             - py3
         pip:
             - pip>=19.3.1
+    py37:
+        python: 3.7.9
+        tags:
+            - py3
+        pip:
+            - pip>=19.3.1
     py38:
         python: 3.8.2
         tags:
@@ -97,10 +103,10 @@ components:
             - tf
             - tf1
             - tf1n
-    tf2n:
+    tf2night:
         pip:
             - tf-nightly-gpu
-        short: tf2n
+        short: tf2night
         tags:
             - tf
             - tf2
@@ -129,6 +135,12 @@ components:
     tf25p:
         pip:
             - tensorflow_gpu>=2.5.0
+        tags:
+            - tf
+            - tf2
+    tf2new:
+        pip:
+            - tensorflow_gpu>=2.7.0
         tags:
             - tf
             - tf2
@@ -208,9 +220,9 @@ components:
     #        - git+git://github.com/wandb/client.git@797db669bec29094fd2676ba8e35f7840bedf487#egg=wandb
 groups:
     pythons:
-        - py36
+        - py37
     python3s:
-        - py36
+        - py37
     python3os:
         - py36
     python3ns:
@@ -228,16 +240,22 @@ groups:
         - ptn
     tensorflows:
         - tf2
-        - tf2n
+        - tf2new
+        - tf2night
     tensorflows1plus:
         - tf1
         - tf2
-        - tf2n
+        - tf2new
+        - tf2night
     tf1or2:
         - tf1
         - tf2
     tfns:
-        - tf2n
+        - tf2new
+        - tf2night
+    tf2n:
+        - tf2new
+        - tf2night
     fastai2s:
         - fastai2
         - fastai2git
