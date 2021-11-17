@@ -17,6 +17,7 @@ components:
             - numpy
             - pandas
             - plotly
+            - pyparsing<3,>=2.0.2  # matplotlib will pull in pyprasing >=3, fastparquet needs this
             - matplotlib
             - pillow
             - soundfile
