@@ -67,7 +67,7 @@ def _framework_priority(imp) -> Generator[Tuple[bool, str], None, None]:
     yield imp.lightgbm, "lightgbm"
     yield imp.catboost, "catboost"
     yield imp.xgboost, "xgboost"
-    yield imp.transformers, "huggingface"
+    yield imp.transformers_huggingface, "huggingface"
     yield imp.pytorch_ignite, "ignite"
     yield imp.pytorch_lightning, "lightning"
     yield imp.fastai, "fastai"
@@ -100,7 +100,7 @@ def scan(x, r, fname):
         x["num"] += 1
         try:
             run = api.run(run_id)
-        except wandb.errors.error.CommError:
+        except wandb.errors.CommError:
             run = None
         if not run:
             print("# %d: run" % x["num"], spec, run_id)
