@@ -22,6 +22,7 @@ variants:
         - wandb-cli
         - torches-new
         - raytune
+        - broken
 check:
     command:
         - python
