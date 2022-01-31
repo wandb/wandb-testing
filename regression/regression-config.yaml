@@ -65,9 +65,8 @@ components:
             - pto
     pt0.4.1:
         pip:
-            - torchvision==0.2.1
-            - torch==0.4.1.post2
             - pillow<=6.2.2       # pillow 7 breaks older torchvision
+            - torch==0.4.1.post2 torchvision==0.2.1 -f https://download.pytorch.org/whl/torch_stable.html
         tags:
             - pt
             - pto
