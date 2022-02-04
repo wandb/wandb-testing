@@ -5,7 +5,7 @@ sources:
         url: git@github.com:wandb/examples.git
         base: examples
 launch:
-    path: examples/examples/fastai/fastai1-simpsons
+    path: examples/examples/fastai/fastai-v1-examples/fastai1-simpsons
     command:
         - python
         - train_sweep.py
