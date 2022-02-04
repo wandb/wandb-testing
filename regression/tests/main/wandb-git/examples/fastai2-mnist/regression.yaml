@@ -5,10 +5,10 @@ sources:
         url: git@github.com:wandb/examples.git
         base: examples
 launch:
-    path: examples/examples/fastai/fastai-basics
+    path: examples/examples/fastai/basics
     command:
         - python
-        - fastai-mnist.py
+        - mnist.py
 variants:
     - init:
         - python3s
