@@ -4,6 +4,7 @@ sources:
     - wandb-examples:
         url: git@github.com:wandb/examples.git
         base: examples
+        hash: 3dff85fcf7b7705dece9b5082542050b2496a8d9
 launch:
     path: examples/examples/ray-tune
     command:

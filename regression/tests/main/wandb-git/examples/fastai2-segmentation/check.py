@@ -5,6 +5,7 @@ import os
 import wandb
 run_id = os.environ.get("WANDB_RUN_ID")
 project = os.environ.get("WANDB_PROJECT") or "regression"
+project = "fastai-segmentation"
 api = wandb.Api()
 last_run = api.run("%s/%s" % (project, run_id))
 
