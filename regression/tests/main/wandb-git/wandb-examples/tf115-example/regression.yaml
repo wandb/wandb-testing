@@ -4,7 +4,7 @@ short: tf115ex-randominput
 name: wandb-wandb-examples-tf115-example
 sources:
     - wandb-examples:
-        url: git@github.com:wandb/wandb-examples.git
+        url: git+ssh://git@github.com/wandb/wandb-examples.git
         base: wandb-examples
 launch:
     path: wandb-examples/tensorflow

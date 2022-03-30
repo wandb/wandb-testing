@@ -2,11 +2,11 @@ version: 0.0
 name: wandb-examples-pt-cnn-mnist
 sources:
     - tensorflow-examples:
-        url: git@github.com:wandb/examples.git
+        url: https://github.com/wandb/examples.git
         base: examples
         #hash: 
     - wandb-testing:
-        url: git@github.com:wandb/wandb-testing.git
+        url: https://github.com/wandb/wandb-testing.git
         base: wandb-testing
 prepare:
     - download:

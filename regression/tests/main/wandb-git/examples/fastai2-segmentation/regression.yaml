@@ -1,8 +1,8 @@
 version: 0.0
 name: wandb-examples-fastai2-segmentation
 sources:
-    - wandb-examples:
-        url: git@github.com:wandb/examples.git
+    - examples:
+        url: https://github.com/wandb/examples.git
         base: examples
 launch:
     path: examples/examples/fastai/basics

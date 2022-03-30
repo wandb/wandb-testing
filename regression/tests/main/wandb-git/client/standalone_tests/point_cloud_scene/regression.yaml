@@ -2,7 +2,7 @@ version: 0.0
 name: wandb-standalone-point-cloud-scene
 sources:
     - wandb-client:
-        url: git@github.com:wandb/client.git
+        url: https://github.com/wandb/client.git
         base: client
         #hash: 
 launch:

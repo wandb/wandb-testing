@@ -598,9 +598,9 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
         conf["components"]["wandb-grpc"] = {"pip": ["%s[grpc]==%s" % (clibase, cliver)]}
         conf["components"]["wandb-service"] = {"pip": ["%s[service]==%s" % (clibase, cliver)]}
     else:
-        conf["components"]["wandb-cli"] = {"pip": ["git+git://github.com/%s@%s#egg=%s" % (clirepo, clihash, clibase)]}
-        conf["components"]["wandb-grpc"] = {"pip": ["git+git://github.com/%s@%s#egg=%s[grpc]" % (clirepo, clihash, clibase)]}
-        conf["components"]["wandb-service"] = {"pip": ["git+git://github.com/%s@%s#egg=%s[service]" % (clirepo, clihash, clibase)]}
+        conf["components"]["wandb-cli"] = {"pip": ["git+https://github.com/%s@%s#egg=%s" % (clirepo, clihash, clibase)]}
+        conf["components"]["wandb-grpc"] = {"pip": ["git+https://github.com/%s@%s#egg=%s[grpc]" % (clirepo, clihash, clibase)]}
+        conf["components"]["wandb-service"] = {"pip": ["git+https://github.com/%s@%s#egg=%s[service]" % (clirepo, clihash, clibase)]}
 
     dirname = os.path.dirname(os.path.abspath(fname))
     #print("dirname", dirname)

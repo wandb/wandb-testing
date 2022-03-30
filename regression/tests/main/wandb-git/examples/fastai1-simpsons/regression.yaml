@@ -2,7 +2,7 @@ version: 0.0
 name: wandb-examples-fastai1-simpsons
 sources:
     - wandb-examples:
-        url: git@github.com:wandb/examples.git
+        url: https://github.com/wandb/examples.git
         base: examples
 launch:
     path: examples/examples/fastai/fastai-v1-examples/fastai1-simpsons

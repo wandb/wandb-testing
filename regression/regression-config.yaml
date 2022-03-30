@@ -206,7 +206,7 @@ components:
             - tensorboard>=2.5.0
     fastai2git:
         pip:
-            - git+git://github.com/fastai/fastai.git
+            - git+https://github.com/fastai/fastai.git
         tags:
             - fa
             - fa2

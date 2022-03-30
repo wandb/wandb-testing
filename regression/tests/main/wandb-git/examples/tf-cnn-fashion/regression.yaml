@@ -2,7 +2,7 @@ version: 0.0
 name: wandb-examples-tf-cnn-fashion
 sources:
     - tensorflow-examples:
-        url: git@github.com:wandb/examples.git
+        url: https://github.com/wandb/examples.git
         base: examples
         #hash: 
 launch:

@@ -1,5 +1,5 @@
 version: 0.0
 external:
     - wandb-examples:
-        url: git@github.com:wandb/wandb-examples.git
+        url: git+ssh://git@github.com/wandb/wandb-examples.git
         base: wandb-examples
