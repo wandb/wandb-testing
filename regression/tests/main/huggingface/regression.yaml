@@ -9,6 +9,7 @@ sources:
         url: https://github.com/huggingface/transformers.git
         base: transformers
         hash: bfa4ccf77d65d8899b01417bd9845b2e78bc0ec5
+        branch: main
         # v4.1.1 release
 launch:
     path: transformers
