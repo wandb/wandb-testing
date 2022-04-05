@@ -59,7 +59,7 @@ components:
             - pt
     pt1.4:
         pip:
-            - torch==1.4.0+cu100 torchvision==0.5.0+cu100 -f https://download.pytorch.org/whl/torch_stable.html
+            - torch==1.4.0 torchvision==0.5.0 -f https://download.pytorch.org/whl/torch_stable.html
         tags:
             - pt
             - pto
@@ -229,7 +229,7 @@ groups:
     torches:
         - pt1.4
         - ptn
-        - pt0.4.1
+        # - pt0.4.1
     torches1plus:
         - pt
         - pt1.4
