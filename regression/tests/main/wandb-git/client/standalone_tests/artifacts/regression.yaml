@@ -5,7 +5,7 @@ sources:
         url: https://github.com/wandb/client.git
         base: client
 launch:
-    path: client/standalone_tests
+    path: client/tests/standalone_tests
     command:
         - python
         - artifact_tests.py
