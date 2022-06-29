@@ -6,7 +6,7 @@ sources:
         base: client
         #hash: 
 launch:
-    path: client/standalone_tests
+    path: client/tests/standalone_tests
     command:
         - python
         - keras_tensorboard.py
