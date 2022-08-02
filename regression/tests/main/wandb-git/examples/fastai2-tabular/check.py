@@ -16,5 +16,5 @@ last_run = api.run("%s/%s" % (project, run_id))
 assert last_run.summary_metrics["epoch"] == 2
 assert last_run.summary_metrics["train_loss"] > 0
 assert last_run.summary_metrics["valid_loss"] > 0
-image1 = last_run.summary_metrics["Prediction Samples"]
+image1 = last_run.summary_metrics["Prediction_Samples"]
 assert image1.get("_type") == "table-file"

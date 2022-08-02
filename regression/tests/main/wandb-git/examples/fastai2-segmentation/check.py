@@ -15,7 +15,7 @@ last_run = api.run("%s/%s" % (project, run_id))
 assert last_run.summary_metrics["epoch"] == 4
 assert last_run.summary_metrics["train_loss"] > 0
 assert last_run.summary_metrics["valid_loss"] > 0
-image1 = last_run.summary_metrics["Prediction Samples"]
-assert image1.get("_type").startswith("images")
-assert image1.get("count") == 20
+image1 = last_run.summary_metrics["Prediction_Samples"]
+assert image1.get("_type").startswith("table-file")
+assert image1.get("nrows") == 20
 # TODO: add artifact checks
