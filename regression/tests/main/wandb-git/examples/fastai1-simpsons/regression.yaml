@@ -19,6 +19,7 @@ variants:
         - python3s
         - wandb-cli
         - fastai1
+        - broken
 check:
     command:
         - python
