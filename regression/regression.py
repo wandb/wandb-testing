@@ -260,7 +260,7 @@ class Test(object):
         pyenv = "v" + pyver.replace('.', '')
         subprocess.check_output(["pyenv", "install", "-s", pyver])
         subprocess.check_output(["pyenv", "uninstall", "-f", pyver + "/envs/" + pyenv])
-        subprocess.check_output(["pyenv", "virtualenv", pyver, pyenv])
+        subprocess.check_output(["pyenv", "virtualenv", "-f",  pyver, pyenv])
         # PYENV_VERSION=v36 pyenv exec pip list
         env = self.conf.get("environment", {})
         pl = env.get("pip")
