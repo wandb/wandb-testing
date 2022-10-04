@@ -80,6 +80,7 @@ components:
     keras:
         pip:
             - keras<2.6.0
+            - protobuf<3.20
         tags:
             - k
     keras2.0.9:
