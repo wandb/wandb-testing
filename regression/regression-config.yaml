@@ -85,12 +85,14 @@ components:
             - k
     keras2.0.9:
         pip:
+            - protobuf<3.20
             - keras==2.0.9
         tags:
             - k
             - ko
     keras2.3.1:
         pip:
+            - protobuf<3.20
             - keras==2.3.1
         tags:
             - k
@@ -113,6 +115,7 @@ components:
             - tf2n
     tf:
         pip:
+            - protobuf<3.20
             - tensorflow_gpu==1.15.0
         short: tf
         tags:
@@ -120,6 +123,7 @@ components:
             - tf1
     tf1:
         pip:
+            - protobuf<3.20
             - tensorflow_gpu==1.15.0
         short: tf1
         tags:
@@ -127,6 +131,7 @@ components:
             - tf1
     tf2:
         pip:
+            - protobuf<3.20
             - tensorflow_gpu<2.5.0
         short: tf2
         tags:
@@ -146,6 +151,7 @@ components:
             - tf2
     tf2.0.0:
         pip:
+            - protobuf<3.20
             - tensorflow_gpu=2.0.0
         short: tf2o
         tags:
@@ -154,6 +160,7 @@ components:
             - tf2o
     tf1.14.0:
         pip:
+            - protobuf<3.20
             - tensorflow_gpu==1.14.0
         short: tfo
         tags:
@@ -162,6 +169,7 @@ components:
             - tf1o
     tf1.12.2:
         pip:
+            - protobuf<3.20
             - tensorflow_gpu==1.12.2
         short: tfo
         tags:
@@ -170,6 +178,7 @@ components:
             - tf1o
     tf1.11.0:
         pip:
+            - protobuf<3.20
             - tensorflow_gpu==1.11.0
         short: tfo
         tags:
@@ -178,6 +187,7 @@ components:
             - tf1o
     tf1.10.1:
         pip:
+            - protobuf<3.20
             - tensorflow_gpu==1.10.1
         short: tfo
         tags:
