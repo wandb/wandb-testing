@@ -3,7 +3,7 @@ short: tbxex
 name: wandb-wandb-examples-tbx-example
 sources:
     - wandb-examples:
-        url: git+ssh://git@github.com/wandb/wandb-examples.git
+        url: https://github.com/wandb/wandb-examples.git
         base: wandb-examples
 launch:
     path: wandb-examples/tbX

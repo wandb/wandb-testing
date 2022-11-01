@@ -436,6 +436,9 @@ class Test(object):
         for l_settings, l in l_list:
             r = [os.path.expanduser(str(i)) for i in l]
             print("INFO: Cool Running", ' '.join(r))
+            # for x, y in os.environ.items():
+            #     if x.startswith("WANDB"):
+            #         print("export {}={}".format(x, y))
             project = "regression"
             if self.args.project:
                 project = self.args.project
@@ -840,7 +843,7 @@ def main():
         clihash = args.cli_hash
         # branch and release are unknown (these could be known)
     else:
-        branch = "master"
+        branch = "main"
         cliver, clihash = get_branch_info(branch, args.cli_repo)
 
     print("INFO: cli hash = ", clihash)
