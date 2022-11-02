@@ -2,11 +2,11 @@ version: 0.0
 name: wandb-standalone-mixed-keras
 sources:
     - wandb-client:
-        url: https://github.com/wandb/client.git
-        base: client
-        #hash: 
+        url: https://github.com/wandb/wandb.git
+        base: wandb
+        branch: main
 launch:
-    path: client/tests/standalone_tests
+    path: wandb/tests/standalone_tests
     command:
         - python
         - mixed_keras.py
