@@ -14,7 +14,7 @@ launch:
     killtime: 2m
 environment:
     pip:
-        - sklearn
+        - scikit-learn
         - matplotlib
         - pandas
         - numpy

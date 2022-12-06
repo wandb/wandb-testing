@@ -81,7 +81,7 @@ environment:
         - opencv-python
         - opencv-contrib-python
         - pydot
-        - sklearn
+        - scikit-learn
         - cairocffi
         - editdistance
         - matplotlib
