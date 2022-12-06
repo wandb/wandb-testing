@@ -17,7 +17,7 @@ environment:
 components:
     sklearn:
         pip:
-            - sklearn
+            - scikit-learn
     matplot:
         pip:
             - matplotlib

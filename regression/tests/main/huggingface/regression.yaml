@@ -42,7 +42,7 @@ environment:
         - pip>=21.0
         - transformers==4.1.1
         - datasets
-        - sklearn
+        - scikit-learn
     variables:
         WANDB_PROJECT: huggingface-demo
         WANDB_LOG_MODEL: true
