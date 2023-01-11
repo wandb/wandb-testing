@@ -711,8 +711,15 @@ def process(fname, testid, args, branch, cliver, clihash, clibase, clirepo):
 
 
 def get_branch_info(branch, repo):
-    #subprocess.check_output(["git", "clone", "--single-branch", "--branch", branch, "-n", "git@github.com:wandb/client.git", "tmp-cli"])
-    subprocess.check_output(["git", "clone", "--single-branch", "--branch", branch, "git@github.com:" + repo, "tmp-cli"])
+    # subprocess.check_output(
+    #     ["git", "clone", "--single-branch", "--branch", branch, "-n", "git@github.com:wandb/client.git", "tmp-cli"]
+    # )
+    # subprocess.check_output(
+    #     ["git", "clone", "--single-branch", "--branch", branch, "git@github.com:" + repo, "tmp-cli"]
+    # )
+    subprocess.check_output(
+        ["git", "clone", "--single-branch", "--branch", branch, "https://github.com/" + repo, "tmp-cli"]
+    )
     os.chdir("tmp-cli")
     o = subprocess.check_output(["git", "rev-parse", branch])
     o = o.strip()
