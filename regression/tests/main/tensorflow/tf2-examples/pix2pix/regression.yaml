@@ -23,6 +23,7 @@ components:
         patches:
             tensorflow-examples:
                 - wandb-init.patch
+                - data-download.patch
 variants:
     - base:
         - python3s
