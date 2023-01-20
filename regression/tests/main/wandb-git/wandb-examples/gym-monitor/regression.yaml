@@ -1,27 +1,27 @@
 version: 0.0
 name: wandb-wandb-examples-gym-monitor
 sources:
-    - wandb-examples:
-        url: https://github.com/wandb/wandb-examples.git
-        base: wandb-examples
+  - wandb-examples:
+      url: https://github.com/wandb/wandb-examples.git
+      base: wandb-examples
 launch:
-    path: wandb-examples/gym-monitor-regression
-    command:
-        - python
-        - cartpole.py
-        - fake
+  path: wandb-examples/gym-monitor-regression
+  command:
+    - python
+    - cartpole.py
 components:
-    gym:
-        pip:
-            - gym
-            - pygame
+  gym:
+    pip:
+      - gym
+      - pygame
+      - moviepy
 variants:
-    - init:
-        - python3s
-        - wandb-cli
-        - gym
+  - init:
+      - python3s
+      - wandb-cli
+      - gym
 
 check:
-    command:
-        - python
-        - check.py
+  command:
+    - python
+    - check.py
