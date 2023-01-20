@@ -13,4 +13,5 @@ rm -rf tmp-cli/
 export WANDB_API_KEY=$WANDB_API_KEY
 
 EXTRA=${*:-"tests/main/"}
-time ./regression.py --spec :~base:~broken $EXTRA
+parent_dir=$(dirname "$0")
+time "$parent_dir"/regression.py --spec :~base:~broken $EXTRA

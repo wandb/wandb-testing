@@ -17,4 +17,5 @@ sleep 1
 sleep 1
 
 EXTRA=${*:-"tests/s3-beta/"}
-time ./regression.py --spec ::~broken $EXTRA
+parent_dir=$(dirname "$0")
+time "$parent_dir"/regression.py --spec ::~broken $EXTRA

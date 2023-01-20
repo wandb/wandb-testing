@@ -8,4 +8,6 @@ export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-service-account.json
 export GCLOUD_PROJECT=wandb-client-cicd
 
 EXTRA=${*:-"tests/main/"}
-./do-main-regression.sh $EXTRA
+parent_dir=$(dirname "$0")
+"$parent_dir"/do-main-regression.sh $EXTRA
+# the same command, but specifying this file's parent directory as the root
