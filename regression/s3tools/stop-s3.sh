@@ -1,3 +1,4 @@
 echo "Stopping minio..."
-killall bin/minio
+parent_dir=$(dirname "$0")
+killall "$parent_dir"/bin/minio
 echo "stopped."
