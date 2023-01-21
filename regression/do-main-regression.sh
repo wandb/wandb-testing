@@ -14,4 +14,6 @@ export WANDB_API_KEY=$WANDB_API_KEY
 
 EXTRA=${*:-"tests/main/"}
 parent_dir=$(dirname "$0")
-time "$parent_dir"/regression.py --spec :~base:~broken $EXTRA
+pushd "$parent_dir"
+time ./regression.py --spec :~base:~broken $EXTRA
+popd
