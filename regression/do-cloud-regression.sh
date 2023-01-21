@@ -10,6 +10,6 @@ export GCLOUD_PROJECT=wandb-client-cicd
 EXTRA=${*:-"tests/main/"}
 parent_dir=$(dirname "$0")
 pushd "$parent_dir"
-do-main-regression.sh $EXTRA
+./do-main-regression.sh $EXTRA
 # the same command, but specifying this file's parent directory as the root
 popd
