@@ -14,5 +14,5 @@ if [ ! -f "$parent_dir"/bin/mc ]; then
 fi
 
 echo "Starting minio..."
-nohup "$parent_dir"/bin/minio server "$parent_dir"/data/ >"$parent_dir"/logs/minio.log 2>&1 &
+nohup "$parent_dir"/bin/minio server "$parent_dir"/../data/ >"$parent_dir"/../logs/minio.log 2>&1 &
 echo "running"
