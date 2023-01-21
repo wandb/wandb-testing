@@ -13,16 +13,18 @@ export MINIO_HOST=127.0.0.1:9000
 parent_dir=$(dirname "$0")
 
 # if $parent_dir/bin does not exist, create it
-if [ ! -d "$parent_dir"/s3tools/bin ]; then
-    mkdir "$parent_dir"/s3tools/bin
+if [ ! -d "$parent_dir"/bin ]; then
+    mkdir "$parent_dir"/bin
 fi
 
-"$parent_dir"/s3tools/stop-s3.sh
+pushd "$parent_dir"
+s3tools/stop-s3.sh
 sleep 1
-"$parent_dir"/s3tools/start-s3.sh
+s3tools/start-s3.sh
 sleep 1
-"$parent_dir"/s3tools/setup-s3.sh
+s3tools/setup-s3.sh
 sleep 1
 
 EXTRA=${*:-"tests/s3-beta/"}
-time "$parent_dir"/regression.py --spec ::~broken $EXTRA
+time regression.py --spec ::~broken $EXTRA
+popd
