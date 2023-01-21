@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 ulimit -n 4096
 export AWS_ACCESS_KEY_ID=minioadmin
@@ -17,6 +18,8 @@ if [ ! -d "$parent_dir"/bin ]; then
     mkdir "$parent_dir"/bin
 fi
 
+pushd "$parent_dir"/bin
+pwd
 #"$parent_dir"/s3tools/stop-s3.sh
 #sleep 1
 #"$parent_dir"/s3tools/start-s3.sh
