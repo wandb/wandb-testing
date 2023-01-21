@@ -18,16 +18,14 @@ if [ ! -d "$parent_dir"/bin ]; then
     mkdir "$parent_dir"/bin
 fi
 
-pushd "$parent_dir"/bin
-pwd
-#"$parent_dir"/s3tools/stop-s3.sh
-#sleep 1
-#"$parent_dir"/s3tools/start-s3.sh
-#sleep 1
-#"$parent_dir"/s3tools/setup-s3.sh
-#sleep 1
-#
-#EXTRA=${*:-"tests/s3-beta/"}
-#time ./regression.py --spec ::~broken $EXTRA
+pushd "$parent_dir"
+s3tools/stop-s3.sh
+sleep 1
+s3tools/start-s3.sh
+sleep 1
+s3tools/setup-s3.sh
+sleep 1
 
-echo "lol"
+EXTRA=${*:-"tests/s3-beta/"}
+time ./regression.py --spec ::~broken $EXTRA
+popd
