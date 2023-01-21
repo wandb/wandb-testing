@@ -12,6 +12,11 @@ export MINIO_HOST=127.0.0.1:9000
 
 parent_dir=$(dirname "$0")
 
+# if $parent_dir/bin does not exist, create it
+if [ ! -d "$parent_dir"/s3tools/bin ]; then
+    mkdir "$parent_dir"/s3tools/bin
+fi
+
 "$parent_dir"/s3tools/stop-s3.sh
 sleep 1
 "$parent_dir"/s3tools/start-s3.sh
