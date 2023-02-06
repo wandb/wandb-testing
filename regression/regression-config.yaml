@@ -99,7 +99,7 @@ components:
             - ko
     tfn:
         pip:
-            - tf-nightly-gpu
+            - tf-nightly
         short: tfn
         tags:
             - tf
@@ -107,7 +107,7 @@ components:
             - tf1n
     tf2night:
         pip:
-            - tf-nightly-gpu
+            - tf-nightly
         short: tf2night
         tags:
             - tf
@@ -145,7 +145,7 @@ components:
             - tf2
     tf2new:
         pip:
-            - tensorflow_gpu>=2.7.0
+            - tensorflow>=2.7.0
         tags:
             - tf
             - tf2
