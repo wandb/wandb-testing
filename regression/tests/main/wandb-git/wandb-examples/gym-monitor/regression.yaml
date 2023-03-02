@@ -11,10 +11,11 @@ launch:
         - cartpole.py
         - fake
 components:
-    gym:
-        pip:
-            - gym
-            - pygame
+  gym:
+    pip:
+      - gymnasium
+      - pygame
+      - moviepy
 variants:
     - init:
         - python3s
