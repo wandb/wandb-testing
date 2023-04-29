@@ -145,7 +145,7 @@ components:
             - tf2
     tf2new:
         pip:
-            - -U tensorflow
+            - tensorflow
         tags:
             - tf
             - tf2
