@@ -29,13 +29,13 @@ components:
                 - wandb-init-callback.patch
 variants:
     - base:
-        - python3s
+        - python3ns
         - wandb-run
         - python-path
         - tensorflows
         - tfds
     - callback:
-        - python3s
+        - python3ns
         - python-path
         - tensorflows
         - tfds
