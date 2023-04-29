@@ -12,7 +12,7 @@ launch:
 components:
   gym:
     pip:
-      - gym
+      - gymnasium
       - pygame
       - moviepy
 variants:
