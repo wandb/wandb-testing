@@ -17,6 +17,6 @@ variants:
         - tf2
         - wandb-cli
     - nightly:
-        - python3s
+        - python3ns
         - tfns
         - wandb-cli

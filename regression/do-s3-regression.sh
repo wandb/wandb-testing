@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 ulimit -n 4096
 export AWS_ACCESS_KEY_ID=minioadmin
@@ -9,12 +10,17 @@ export S3_VERIFY_SSL=0
 export MINIO_ACCESS_KEY=minioadmin
 export MINIO_SECRET_KEY=minioadmin
 export MINIO_HOST=127.0.0.1:9000
-./s3tools/stop-s3.sh
+
+parent_dir=$(dirname "$0")
+
+pushd "$parent_dir"
+s3tools/stop-s3.sh
 sleep 1
-./s3tools/start-s3.sh
+s3tools/start-s3.sh
 sleep 1
-./s3tools/setup-s3.sh
+s3tools/setup-s3.sh
 sleep 1
 
 EXTRA=${*:-"tests/s3-beta/"}
 time ./regression.py --spec ::~broken $EXTRA
+popd
