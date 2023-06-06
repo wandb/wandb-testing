@@ -5,4 +5,7 @@ EXTRA=${*:-"tests/sagemaker-beta/"}
 parent_dir=$(dirname "$0")
 pushd "$parent_dir"
 ./do-cloud-regression.sh $EXTRA
+# capture exit code
+exit_code=$?
 popd
+exit $exit_code
