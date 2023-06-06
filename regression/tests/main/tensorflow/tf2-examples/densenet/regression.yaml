@@ -22,7 +22,7 @@ launch:
 components:
     tfds:
         pip:
-            - tensorflow-datasets
+            - tensorflow-datasets<4.9.0
     wandb-init-callback:
         patches:
             tensorflow-examples:
