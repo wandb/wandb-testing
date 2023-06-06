@@ -16,4 +16,7 @@ EXTRA=${*:-"tests/main/"}
 parent_dir=$(dirname "$0")
 pushd "$parent_dir"
 time ./regression.py --spec :~base:~broken $EXTRA
+# capture exit code
+exit_code=$?
 popd
+exit $exit_code

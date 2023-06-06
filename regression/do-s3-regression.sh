@@ -23,4 +23,7 @@ sleep 1
 
 EXTRA=${*:-"tests/s3-beta/"}
 time ./regression.py --spec ::~broken $EXTRA
+# capture exit code
+exit_code=$?
 popd
+exit $exit_code
