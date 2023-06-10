@@ -23,6 +23,7 @@ components:
     tfds:
         pip:
             - tensorflow-datasets<4.9.0
+            - protobuf<3.20
     wandb-init-callback:
         patches:
             tensorflow-examples:
