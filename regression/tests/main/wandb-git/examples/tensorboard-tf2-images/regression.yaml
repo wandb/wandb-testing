@@ -23,7 +23,7 @@ components:
             - matplotlib
 variants:
     - init:
-        - python3os
+        - python3s
         - wandb-cli
         - matplot
         - sklearn
