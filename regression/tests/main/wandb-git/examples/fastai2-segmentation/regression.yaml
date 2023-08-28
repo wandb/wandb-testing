@@ -11,7 +11,7 @@ launch:
         - segmentation.py
 variants:
     - init:
-        - python3s
+        - python3ns
         - wandb-cli
         - fastai2s
 check:

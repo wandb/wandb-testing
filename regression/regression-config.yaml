@@ -27,13 +27,13 @@ components:
         tags:
             - py3
         pip:
-            - pip>=19.3.1
+            - -U pip
     py38:
         python: 3.8.13
         tags:
             - py3.8
         pip:
-            - pip>=19.3.1
+            - -U pip
     wandb-run:
         options:
             - wandb-run
