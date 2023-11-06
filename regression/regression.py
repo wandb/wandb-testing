@@ -25,8 +25,8 @@ import shutil
 import codecs
 import glob
 import time
+import shortuuid
 
-import wandb
 
 def gettimestr():
     now = datetime.datetime.now()
@@ -41,7 +41,6 @@ RUNFILE=os.path.join(os.path.abspath("."), "results", WHEN, "runs.txt")
 #p = subprocess.Popen(sys.argv, stdin=0, stdout=1, stderr=2)
 #ret = p.wait()
 
-import shortuuid
 
 def generate_id():
     # ~3t run ids (36**8)
@@ -721,8 +720,8 @@ def get_branch_info(branch, repo):
     os.chdir("tmp-cli")
     o = subprocess.check_output(["git", "rev-parse", branch])
     o = o.strip()
-    version_str = "current_version = "
-    o2 = subprocess.check_output(["egrep", "^" + version_str, "setup.cfg"])
+    version_str = "__version__ = "
+    o2 = subprocess.check_output(["egrep", "^" + version_str, "wandb/__init__.py"])
     o2 = o2[len(version_str):]
     o2 = o2.strip()
     os.chdir("..")
