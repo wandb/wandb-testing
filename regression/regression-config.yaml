@@ -23,15 +23,21 @@ components:
         pip:
             - pip>=19.3.1
     py37:
-        python: 3.7.13
+        python: 3.7.17
         tags:
             - py3
         pip:
             - -U pip
     py38:
-        python: 3.8.13
+        python: 3.8.18
         tags:
             - py3.8
+        pip:
+            - -U pip
+    py39:
+        python: 3.9.18
+        tags:
+            - py3.9
         pip:
             - -U pip
     wandb-run:
@@ -237,6 +243,8 @@ groups:
         - py36
     python3ns:
         - py38
+    python3ps:
+        - py39
     torches:
         - pt1.4
         - ptn
